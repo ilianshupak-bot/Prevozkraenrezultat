@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroTrans - Контакти</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">EuroTrans</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" id="nav-home">Начало</a></li>
+                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                    <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
+                    <li><a href="contact.html" class="active" id="nav-contact">Контакти</a></li>
+                    <li>
+                        <select class="lang-select" onchange="changeLanguage(this.value)">
+                            <option value="bg">🇧🇬 BG</option>
+                            <option value="en">🇬🇧 EN</option>
+                            <option value="ru">🇷🇺 RU</option>
+                            <option value="ua">🇺🇦 UA</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="text-align: center;"><h1 class="page-title" id="contact-title">Свържете се с нас</h1></div>
+
+        <div class="grid">
+            <div class="card">
+                <h3 id="office-title">Централен Офис</h3>
+                <p><strong>Адрес:</strong> София, Централна Автогара</p>
+                <p><strong>Email:</strong> office@eurotrans.bg</p>
+                <p><strong>Тел:</strong> +359 888 123 456</p>
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
+                <h4 id="work-hours">Работно време</h4>
+                <p>09:00 - 18:00 (Всеки ден)</p>
+            </div>
+
+            <div class="card">
+                <h3 id="form-title">Изпратете запитване</h3>
+                <form id="contact-form">
+                    <div style="margin-bottom: 15px;">
+                        <label id="lbl-name" style="display:block; margin-bottom:5px;">Име:</label>
+                        <input type="text" id="inp-name" required style="width: 100%; padding: 10px; border-radius: 6px; border: none;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label id="lbl-phone" style="display:block; margin-bottom:5px;">Телефон:</label>
+                        <input type="tel" id="inp-phone" required style="width: 100%; padding: 10px; border-radius: 6px; border: none;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label id="lbl-msg" style="display:block; margin-bottom:5px;">Съобщение:</label>
+                        <textarea id="inp-msg" rows="5" required style="width: 100%; padding: 10px; border-radius: 6px; border: none;"></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;" id="btn-send">Изпрати</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
+    </footer>
+    
+    <script type="module" src="auth.js"></script>
+    <script src="lang.js"></script>
+    
+    <script>
+        // Проста визуализация, че формата е изпратена
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("Благодарим ви! Съобщението е изпратено успешно.");
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

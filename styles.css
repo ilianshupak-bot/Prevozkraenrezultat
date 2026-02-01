@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    /* --- Тъмна цветова схема --- */
+    --bg-body: #0f172a;       /* Много тъмно синьо-сиво */
+    --bg-card: #1e293b;       /* По-светло синьо-сиво за картите */
+    --text-main: #e2e8f0;     /* Почти бял текст */
+    --text-muted: #94a3b8;    /* Сив текст за второстепенна инфо */
+    
+    /* --- Акценти и Градиенти --- */
+    --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb); /* Синьо преливане */
+    --accent-gradient: linear-gradient(135deg, #f59e0b, #d97706);  /* Оранжево-златисто преливане */
+    
+    --white: #ffffff;
+    --border-light: rgba(255, 255, 255, 0.1); /* Тънки рамки */
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Дълбока сянка */
+    --glow: 0 0 15px rgba(59, 130, 246, 0.5); /* Светещ ефект */
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Анимация при зареждане */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.7;
+    color: var(--text-main);
+    background-color: var(--bg-body);
+    /* Фин фон с преливане */
+    background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* --- Стъклено Меню (Glassmorphism) --- */
+header {
+    background: rgba(15, 23, 42, 0.85); /* Полупрозрачно */
+    backdrop-filter: blur(10px);        /* Ефект на матирано стъкло */
+    border-bottom: 1px solid var(--border-light);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Текстът е с цвят на градиент */
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav ul li a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: var(--transition);
+}
+
+nav ul li a:hover, nav ul li a.active {
+    color: var(--white);
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+/* Линия под линковете */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: var(--primary-gradient);
+    transition: width 0.3s;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+    width: 100%;
+}
+
+/* --- Съдържание --- */
+main {
+    flex: 1;
+    padding: 60px 0;
+}
+
+h1, h2, h3 {
+    color: var(--white);
+    margin-top: 0;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.page-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--accent-gradient);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* --- Карти --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light); /* Тънка рамка */
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Ефект при посочване */
+.card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(59, 130, 246, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.card h3 {
+    color: #60a5fa; /* По-светло синьо за заглавията в картите */
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    transition: var(--transition);
+}
+
+.card:hover img {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+/* --- Таблица --- */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 20px 25px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-main);
+}
+
+th {
+    background: rgba(30, 41, 59, 0.9);
+    color: #60a5fa;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.2px;
+}
+
+tr:hover td {
+    background-color: rgba(255, 255, 255, 0.05); /* Лек светъл ефект при ред */
+}
+
+/* --- Форми и Inputs --- */
+input, select, textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0 20px 0;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    background: #0f172a; /* Много тъмен фон за полетата */
+    color: var(--white);
+    font-family: inherit;
+    transition: var(--transition);
+    box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    background: #151e32;
+}
+
+/* --- Бутони --- */
+.btn {
+    display: inline-block;
+    background: var(--accent-gradient);
+    color: white;
+    padding: 12px 35px;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+    text-align: center;
+}
+
+.btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5); /* Силно светене при ховър */
+}
+
+/* --- Footer --- */
+footer {
+    background: #0b1120; /* Почти черно */
+    border-top: 1px solid var(--border-light);
+    color: var(--text-muted);
+    text-align: center;
+    padding: 40px 0;
+    font-size: 0.9rem;
+}
+/* --- Езиково меню --- */
+.lang-select {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: 1px solid var(--border-light);
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+.lang-select option {
+    background: var(--bg-card); /* Тъмен фон за опциите */
+    color: var(--white);
+}

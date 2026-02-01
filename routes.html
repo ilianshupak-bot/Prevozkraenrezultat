@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroTrans - Routes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">EuroTrans</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" id="nav-home">Начало</a></li>
+                    <li><a href="routes.html" class="active" id="nav-routes">Маршрути</a></li>
+                    <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
+                    <li><a href="contact.html" id="nav-contact">Контакти</a></li>
+                    <li>
+                        <select class="lang-select" onchange="changeLanguage(this.value)">
+                            <option value="bg">🇧🇬 BG</option>
+                            <option value="en">🇬🇧 EN</option>
+                            <option value="ru">🇷🇺 RU</option>
+                            <option value="ua">🇺🇦 UA</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="text-align: center;"><h1 class="page-title" id="routes-title">Нашите Маршрути</h1></div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3 id="route-1-title">Линия: България - Молдова</h3>
+                <p><strong id="route-1-path">София ➔ Русе ➔ Галац ➔ Кишинев</strong></p>
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
+                <p id="route-1-info">Транзит през: Румъния (Дунав мост, Букурещ околовръстно, Галац).</p>
+                <br>
+                <a href="contact.html" class="btn" id="btn-book">Резервирай</a>
+            </div>
+
+            <div class="card">
+                <h3 id="route-2-title">Линия: Молдова - България</h3>
+                <p><strong id="route-2-path">Кишинев ➔ Галац ➔ Русе ➔ София</strong></p>
+                <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 15px 0;">
+                <p id="route-2-info">Обратен курс по същия маршрут.</p>
+                <br>
+                <a href="contact.html" class="btn" id="btn-book">Резервирай</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
+    </footer>
+    <script src="lang.js"></script>
+        <script type="module" src="auth.js"></script>
+</body>
+</html>

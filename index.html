@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroTrans</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">EuroTrans</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active" id="nav-home">Начало</a></li>
+                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                    <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
+                    <li><a href="contact.html" id="nav-contact">Контакти</a></li>
+                    
+                    <li>
+                        <select class="lang-select" onchange="changeLanguage(this.value)">
+                            <option value="bg">BG</option>
+                            <option value="en">EN</option>
+                            <option value="ru">RU</option>
+                            <option value="ua">UA</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div style="background: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80') center/cover; height: 500px; display: flex; align-items: center; justify-content: center; text-align: center; color: white;">
+        <div style="background: rgba(15, 23, 42, 0.7); padding: 40px; border-radius: 16px; backdrop-filter: blur(5px);">
+            <h1 style="color: white;" id="hero-title">Сигурен транспорт: България <-> Германия</h1>
+            <p id="hero-desc">Комфорт, Wi-Fi и професионални шофьори.</p>
+            <br>
+            <a href="contact.html" class="btn" id="hero-btn">Запази място</a>
+        </div>
+    </div>
+
+    <main class="container">
+        <div style="text-align: center;"><h2 class="page-title" id="why-title">Защо да изберете нас?</h2></div>
+        <div class="grid">
+            <div class="card">
+                <h3 id="card-1-title">Без скрити такси</h3>
+                <p id="card-1-desc">Цената е крайна. Включен багаж до 30кг и ръчен багаж.</p>
+            </div>
+            <div class="card">
+                <h3 id="card-2-title">От адрес до адрес</h3>
+                <p id="card-2-desc">Взимаме ви от дома и ви оставяме пред адреса в Германия.</p>
+            </div>
+            <div class="card">
+                <h3 id="card-3-title">Модерни бусове</h3>
+                <p id="card-3-desc">Автопаркът ни е на по-малко от 3 години, с работещи климатици.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
+    </footer>
+
+    <script src="lang.js"></script>
+        <script type="module" src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EuroTrans - Fleet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">EuroTrans</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" id="nav-home">Начало</a></li>
+                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                    <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="fleet.html" class="active" id="nav-fleet">Автопарк</a></li>
+                    <li><a href="contact.html" id="nav-contact">Контакти</a></li>
+                    <li>
+                        <select class="lang-select" onchange="changeLanguage(this.value)">
+                            <option value="bg">🇧🇬 BG</option>
+                            <option value="en">🇬🇧 EN</option>
+                            <option value="ru">🇷🇺 RU</option>
+                            <option value="ua">🇺🇦 UA</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="text-align: center;"><h1 class="page-title" id="fleet-title">Нашите Автомобили</h1></div>
+
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1618587183758-d2f664e0dd60?q=80&w=600" alt="Mercedes V-Class">
+                <h3 id="fleet-1-title">Mercedes-Benz V-Class</h3>
+                <p id="fleet-1-desc">Истински VIP комфорт. Кожени седалки, индивидуални масички и климатроник за всеки пътник.</p>
+                <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-muted);">
+                    <li>6+1 VIP места</li>
+                    <li>Климатроник / AC</li>
+                    <li>Wi-Fi</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=600" alt="Mercedes Sprinter">
+                <h3 id="fleet-2-title">Mercedes Sprinter VIP</h3>
+                <p id="fleet-2-desc">Просторен микробус за малки групи с голям багажник и телевизия.</p>
+                <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-muted);">
+                    <li>8+1 места</li>
+                    <li>TV / DVD</li>
+                    <li>Голям багажник</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
+    </footer>
+    <script src="lang.js"></script>
+        <script type="module" src="auth.js"></script>
+</body>
+</html>
