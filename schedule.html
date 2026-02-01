@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EuroTrans - Schedule</title>
+    <title>EuroTrans - Разписание</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,10 +19,10 @@
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
-                            <option value="bg">🇧🇬 BG</option>
-                            <option value="en">🇬🇧 EN</option>
-                            <option value="ru">🇷🇺 RU</option>
-                            <option value="ua">🇺🇦 UA</option>
+                            <option value="bg">🇧🇬</option>
+                            <option value="en">🇬🇧</option>
+                            <option value="ru">🇷🇺</option>
+                            <option value="ua">🇺🇦</option>
                         </select>
                     </li>
                 </ul>
@@ -31,39 +31,52 @@
     </header>
 
     <main class="container">
-        <div style="text-align: center;"><h1 class="page-title" id="schedule-title">Седмично Разписание</h1></div>
+        <h1 class="page-title" id="schedule-title">График на пътуванията</h1>
         
-        <table>
-            <thead>
-                <tr>
-                    <th id="th-day">Ден</th>
-                    <th id="th-dest">Направление</th>
-                    <th id="th-time">Час на тръгване</th>
-                    <th id="th-type">Автомобил</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id="sched-row-1-day">Петък</td>
-                    <td id="sched-row-1-dest">София -> Кишинев</td>
-                    <td style="font-weight: bold; color: #f59e0b;">16:00</td>
-                    <td>Mercedes V-Class / Sprinter</td>
-                </tr>
-                <tr>
-                    <td id="sched-row-2-day">Неделя</td>
-                    <td id="sched-row-2-dest">Кишинев -> София</td>
-                    <td style="font-weight: bold; color: #f59e0b;">08:00</td>
-                    <td>Mercedes V-Class / Sprinter</td>
-                </tr>
-            </tbody>
-        </table>
-        <p style="margin-top: 20px; font-style: italic; text-align: center; color: var(--text-muted);" id="sched-note">* Пристигането зависи от преминаването на границите.</p>
+        <div class="grid">
+            <div class="card">
+                <h3 id="sched-day-1">Петък</h3>
+                <div class="price-tag" style="background:#22c55e;">16:00</div>
+                <p><strong id="sched-route-1">София ➔ Молдова</strong></p>
+                <p id="sched-pickup-bg">Тръгване от адрес.</p>
+                <a href="contact.html" class="btn" id="btn-book-1">Запази място</a>
+            </div>
+
+            <div class="card">
+                <h3 id="sched-day-2">Неделя</h3>
+                <div class="price-tag" style="background:#3b82f6;">08:00</div>
+                <p><strong id="sched-route-2">Молдова ➔ София</strong></p>
+                <p id="sched-pickup-md">Тръгване от адрес.</p>
+                <a href="contact.html" class="btn" id="btn-book-2">Запази място</a>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; text-align: left;">
+            <div style="display: flex; gap: 40px; flex-wrap: wrap; align-items: start;">
+                <div style="flex: 1;">
+                    <h2 id="sched-info-title" style="margin-bottom: 20px; color: #333;">Детайли за пътуването</h2>
+                    <p id="sched-info-text" style="line-height: 1.8; color: #444;">
+                        Спазването на разписанието е наш приоритет, но безопасността винаги е на първо място. 
+                        Часовете на тръгване са фиксирани – 16:00 в Петък от България и 08:00 в Неделя от Молдова. 
+                        Молим всички пътници да бъдат готови поне 15 минути преди уречения час.
+                        <br><br>
+                        Продължителността на пътуването варира в зависимост от натоварването на граничните пунктове (Русе-Джурджу и Галац-Джурджулещ). 
+                        Обикновено пътуването отнема между 10 и 12 часа. 
+                        В графика са предвидени регулярни почивки на всеки 3-4 часа на големи бензиностанции (като OMV или Rompetrol), 
+                        където можете да използвате тоалетна, да си купите храна или кафе.
+                    </p>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Danube_Bridge_Ruse.jpg" 
+                         alt="Danube Bridge Bulgaria Romania" 
+                         style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <p style="text-align: center; font-size: 0.9em; color: #666; margin-top: 5px;">Дунав мост (Русе - Гюргево)</p>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
-    </footer>
+    <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
-        <script type="module" src="auth.js"></script>
 </body>
 </html>

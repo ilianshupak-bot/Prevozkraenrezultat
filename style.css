@@ -286,3 +286,70 @@ footer {
     background: var(--bg-card); /* Тъмен фон за опциите */
     color: var(--white);
 }
+/* Запази старите стилове и добави/промени тези */
+:root {
+    --primary: #2563eb;
+    --dark: #1e293b;
+    --light: #f8fafc;
+    --text-muted: #94a3b8;
+    --bg-card: #1f2937;
+}
+
+/* ... (старите стилове за body, header, nav остават същите) ... */
+
+/* Увери се, че .grid е настроен добре за 2 колони */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Стилове за Картата и Контролите в routes.html */
+#map {
+    height: 400px;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+    z-index: 1; /* Да не покрива менюто */
+}
+
+.route-controls {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.route-toggles {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.route-toggle-btn {
+    padding: 10px 20px;
+    background: #374151;
+    color: white;
+    border: 1px solid #4b5563;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.route-toggle-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.route-options select {
+    padding: 10px;
+    border-radius: 5px;
+    background: #374151;
+    color: white;
+    border: 1px solid #4b5563;
+    margin: 5px;
+}

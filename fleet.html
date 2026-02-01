@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EuroTrans - Fleet</title>
+    <title>EuroTrans - Автопарк</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,10 +19,10 @@
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
-                            <option value="bg">🇧🇬 BG</option>
-                            <option value="en">🇬🇧 EN</option>
-                            <option value="ru">🇷🇺 RU</option>
-                            <option value="ua">🇺🇦 UA</option>
+                            <option value="bg">🇧🇬</option>
+                            <option value="en">🇬🇧</option>
+                            <option value="ru">🇷🇺</option>
+                            <option value="ua">🇺🇦</option>
                         </select>
                     </li>
                 </ul>
@@ -31,37 +31,45 @@
     </header>
 
     <main class="container">
-        <div style="text-align: center;"><h1 class="page-title" id="fleet-title">Нашите Автомобили</h1></div>
-
-        <div class="grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1618587183758-d2f664e0dd60?q=80&w=600" alt="Mercedes V-Class">
-                <h3 id="fleet-1-title">Mercedes-Benz V-Class</h3>
-                <p id="fleet-1-desc">Истински VIP комфорт. Кожени седалки, индивидуални масички и климатроник за всеки пътник.</p>
-                <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-muted);">
-                    <li>6+1 VIP места</li>
-                    <li>Климатроник / AC</li>
-                    <li>Wi-Fi</li>
-                </ul>
-            </div>
+        <h1 class="page-title" id="fleet-title">Нашият Автомобил</h1>
+        
+        <div class="card" style="max-width: 900px; margin: 0 auto; padding: 0; overflow: hidden;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Mercedes-Benz_V_250_d_Avantgarde_Edition_%28W_447%29_%E2%80%93_Frontansicht%2C_25._M%C3%A4rz_2015%2C_D%C3%BCsseldorf.jpg/1200px-Mercedes-Benz_V_250_d_Avantgarde_Edition_%28W_447%29_%E2%80%93_Frontansicht%2C_25._M%C3%A4rz_2015%2C_D%C3%BCsseldorf.jpg" 
+                 alt="Mercedes V-Class Exterior" style="width:100%; display: block;">
             
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?q=80&w=600" alt="Mercedes Sprinter">
-                <h3 id="fleet-2-title">Mercedes Sprinter VIP</h3>
-                <p id="fleet-2-desc">Просторен микробус за малки групи с голям багажник и телевизия.</p>
-                <ul style="padding-left: 20px; margin-top: 10px; color: var(--text-muted);">
-                    <li>8+1 места</li>
-                    <li>TV / DVD</li>
-                    <li>Голям багажник</li>
+            <div style="padding: 30px;">
+                <h2 style="margin-top:10px;">Mercedes-Benz V-Class</h2>
+                <p id="fleet-desc-1" style="margin-bottom: 15px;">
+                    Нашият основен автомобил е Mercedes-Benz V-Class. Това е еталонът за луксозен пътнически превоз.
+                </p>
+                
+                <h4 id="fleet-features-title">Удобства и Екстри:</h4>
+                <ul style="text-align: left; margin: 15px 0 15px 20px;">
+                    <li id="fleet-feat-1">🚗 Просторен кожен салон (7+1)</li>
+                    <li id="fleet-feat-2">❄️ Тризонов климатроник</li>
+                    <li id="fleet-feat-3">💺 Индивидуални накланящи се седалки</li>
+                    <li id="fleet-feat-4">🎒 Огромен багажник</li>
+                    <li id="fleet-feat-5">🎵 Висококачествена аудио система</li>
                 </ul>
+
+                <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+                <h3 id="fleet-tech-title">Технически характеристики и Поддръжка</h3>
+                <p id="fleet-tech-desc" style="line-height: 1.8; text-align: justify; color: #555;">
+                    Mercedes-Benz V-Class е избран за нашите международни курсове заради ненадминатия комфорт. 
+                    За разлика от стандартните бусове, V-класата предлага возия на лек автомобил благодарение на адаптивното си окачване.
+                    Това прави преминаването през пътищата в България, Румъния и Молдова изключително плавно. 
+                    Шумоизолацията е на премиум ниво, което гарантира спокойствие по време на дългия път.
+                    <br><br>
+                    Сигурността е гарантирана от системите ABS, ESP, Lane Assist и Attention Assist. 
+                    Автомобилът е оборудван с множество въздушни възглавници, защитаващи всички пътници.
+                    Преди всеки курс се извършва щателна техническа проверка. Салонът се дезинфекцира и почиства основно преди всяко потегляне.
+                </p>
             </div>
         </div>
     </main>
 
-    <footer>
-        <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
-    </footer>
+    <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
-        <script type="module" src="auth.js"></script>
 </body>
 </html>

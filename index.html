@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EuroTrans</title>
+    <title>EuroTrans - Начало</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ВИЗУАЛНИ ЕФЕКТИ */
+        body {
+            background-color: #eef2f6; /* Леко сив фон, за да изпъкнат картите */
+            background-image: linear-gradient(135deg, #eef2f6 0%, #e6e9f0 100%);
+        }
+
+        /* Клас за "кутиите" със съдържание */
+        .content-box {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Мека сянка */
+            padding: 40px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            border-left: 6px solid #22c55e; /* Зелена лента за акцент */
+            transition: transform 0.3s ease;
+        }
+
+        .content-box:hover {
+            transform: translateY(-5px); /* Леко повдигане при мишка */
+        }
+        
+        /* За да не се чупи хедъра */
+        header { background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    </style>
 </head>
 <body>
     <header>
@@ -17,13 +43,12 @@
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
-                    
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
-                            <option value="bg">BG</option>
-                            <option value="en">EN</option>
-                            <option value="ru">RU</option>
-                            <option value="ua">UA</option>
+                            <option value="bg">🇧🇬</option>
+                            <option value="en">🇬🇧</option>
+                            <option value="ru">🇷🇺</option>
+                            <option value="ua">🇺🇦</option>
                         </select>
                     </li>
                 </ul>
@@ -31,38 +56,64 @@
         </div>
     </header>
 
-    <div style="background: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80') center/cover; height: 500px; display: flex; align-items: center; justify-content: center; text-align: center; color: white;">
-        <div style="background: rgba(15, 23, 42, 0.7); padding: 40px; border-radius: 16px; backdrop-filter: blur(5px);">
-            <h1 style="color: white;" id="hero-title">Сигурен транспорт: България <-> Германия</h1>
-            <p id="hero-desc">Комфорт, Wi-Fi и професионални шофьори.</p>
-            <br>
-            <a href="contact.html" class="btn" id="hero-btn">Запази място</a>
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 id="hero-title">Пътувайте комфортно и сигурно</h1>
+            <p id="hero-subtitle">Вашият надежден партньор за транспорт между България и Молдова.</p>
+            <a href="routes.html" class="btn" id="hero-btn">Виж маршрутите</a>
         </div>
-    </div>
+    </section>
 
-    <main class="container">
-        <div style="text-align: center;"><h2 class="page-title" id="why-title">Защо да изберете нас?</h2></div>
+    <section class="container content-box">
+        <h2 class="section-title" id="features-title">Защо да изберете нас?</h2>
         <div class="grid">
-            <div class="card">
-                <h3 id="card-1-title">Без скрити такси</h3>
-                <p id="card-1-desc">Цената е крайна. Включен багаж до 30кг и ръчен багаж.</p>
+            <div class="card" style="box-shadow: none; border: 1px solid #eee;">
+                <div class="icon">💰</div>
+                <h3 id="feat-price-title">Прозрачна цена</h3>
+                <p id="feat-price-desc">Цена за 1 пътник: 60$. Всичко включено.</p>
             </div>
-            <div class="card">
-                <h3 id="card-2-title">От адрес до адрес</h3>
-                <p id="card-2-desc">Взимаме ви от дома и ви оставяме пред адреса в Германия.</p>
+            <div class="card" style="box-shadow: none; border: 1px solid #eee;">
+                <div class="icon">✨</div>
+                <h3 id="feat-comfort-title">Комфорт</h3>
+                <p id="feat-comfort-desc">Mercedes V-Class, климатроник и място за краката.</p>
             </div>
-            <div class="card">
-                <h3 id="card-3-title">Модерни бусове</h3>
-                <p id="card-3-desc">Автопаркът ни е на по-малко от 3 години, с работещи климатици.</p>
+            <div class="card" style="box-shadow: none; border: 1px solid #eee;">
+                <div class="icon">🛡️</div>
+                <h3 id="feat-safety-title">Сигурност</h3>
+                <p id="feat-safety-desc">Професионални шофьори и технически прегледи.</p>
             </div>
         </div>
-    </main>
+    </section>
+
+    <section class="container content-box">
+        <div class="grid" style="align-items: center; gap: 40px;">
+            <div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Vama_Albi%C8%9Ba_-_Leu%C8%99eni_2012.jpg/1200px-Vama_Albi%C8%9Ba_-_Leu%C8%99eni_2012.jpg" 
+                     alt="Border Crossing Moldova Romania" 
+                     style="width: 100%; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);">
+            </div>
+            <div>
+                <h2 id="home-extra-title" style="color: #333;">Повече от просто транспорт</h2>
+                <p id="home-extra-text" style="line-height: 1.8; color: #555; text-align: justify;">
+                    В EuroTrans разбираме, че дългото пътуване между България и Молдова може да бъде изморително. 
+                    Затова ние създадохме услуга, която поставя човека на първо място. За разлика от големите автобуси, 
+                    където сте просто номер на седалка, при нас получавате лично отношение и гъвкавост. 
+                    Нашата мисия е да свързваме семейства, приятели и бизнес партньори, като премахваме стреса от границите и пътя.
+                    <br><br>
+                    Услугата ни "от адрес до адрес" е създадена специално за ваше улеснение. Вече не е нужно да мъкнете тежки куфари 
+                    по автогари, да търсите таксита в непознати градове или да се притеснявате за трансфери. 
+                    Шофьорът ще дойде точно пред вашия дом, ще натовари багажа ви и ще ви остави пред вратата на вашата дестинация. 
+                    Ние ценим вашето време и комфорт, затова избираме само най-оптималните маршрути през Румъния.
+                </p>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
     </footer>
 
+    <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
-        <script type="module" src="auth.js"></script>
 </body>
 </html>
