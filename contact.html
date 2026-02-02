@@ -48,6 +48,10 @@
                 <h3 id="form-title">Изпратете запитване</h3>
                 <form id="contact-form">
                     <div style="margin-bottom: 15px;">
+                        <label id="lbl-route" style="display:block; margin-bottom:5px;">Избран маршрут:</label>
+                        <textarea id="inp-route" rows="3" readonly style="width: 100%; padding: 10px; border-radius: 6px; border: none; background: #f5f5f5;"></textarea>
+                    </div>
+                    <div style="margin-bottom: 15px;">
                         <label id="lbl-name" style="display:block; margin-bottom:5px;">Име:</label>
                         <input type="text" id="inp-name" required style="width: 100%; padding: 10px; border-radius: 6px; border: none;">
                     </div>
@@ -80,6 +84,15 @@
             e.preventDefault();
             alert("Благодарим ви! Съобщението е изпратено успешно.");
             e.target.reset();
+            localStorage.removeItem('selectedRoute'); // Изчисти след изпращане
+        });
+
+        // Попълни маршрута ако има
+        document.addEventListener('DOMContentLoaded', () => {
+            const route = localStorage.getItem('selectedRoute');
+            if (route) {
+                document.getElementById('inp-route').value = route;
+            }
         });
     </script>
     <script>
@@ -98,7 +111,7 @@
             if (scrollTop > 200) {
                 scrollToTopBtn.style.display = 'block';
             } else {
-                scrollToTopBtn.style.display = 'none';
+                scrollToTopBtn.style.display = 'Няма';
             }
         });
 

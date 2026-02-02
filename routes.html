@@ -49,6 +49,10 @@
         </div>
 
         <div id="map"></div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" id="btn-contact-route" onclick="saveRoute()">Запази пътуване</button>
+        </div>
     </main>
 
     <script type="module" src="auth.js"></script>
@@ -73,6 +77,20 @@
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
         var routingControl = null;
+
+        const routeHtmlBgMd = `
+            <span class="static-city" id="city-sofia">София</span> ➝
+            <select id="bg-stop" onchange="updateMap()"><option id="opt-none" value="none">-- Директно --</option><option id="opt-sz" value="stara_zagora">Стара Загора</option><option id="opt-varna" value="varna">Варна</option><option id="opt-burgas" value="burgas">Бургас</option></select> ➝
+            <span>Русе</span> ➝ <span>Галац</span> ➝ <span>Чадър-Лунга</span> ➝
+            <select id="md-stop" onchange="updateMap()"><option id="opt-none-2" value="none">-- Директно --</option><option id="opt-chisinau" value="chisinau">Кишинев</option><option id="opt-tvarditsa" value="tvarditsa">Твардица</option></select>
+        `;
+
+        const routeHtmlMdBg = `
+            <select id="md-stop" onchange="updateMap()"><option id="opt-none-2" value="none">-- Директно --</option><option id="opt-chisinau" value="chisinau">Кишинев</option><option id="opt-tvarditsa" value="tvarditsa">Твардица</option></select> ➝
+            <span>Чадър-Лунга</span> ➝ <span>Галац</span> ➝ <span>Русе</span> ➝
+            <select id="bg-stop" onchange="updateMap()"><option id="opt-none" value="none">-- Директно --</option><option id="opt-sz" value="stara_zagora">Стара Загора</option><option id="opt-varna" value="varna">Варна</option><option id="opt-burgas" value="burgas">Бургас</option></select> ➝
+            <span class="static-city" id="city-sofia">София</span>
+        `;
 
         function updateMap() {
             if (routingControl) {
@@ -118,14 +136,27 @@
         function setDirection(dir) {
             const btnBg = document.getElementById('btn-bg-md');
             const btnMd = document.getElementById('btn-md-bg');
+            const selectContainer = document.getElementById('select-container');
             if(dir === 'bg-md') {
                 btnBg.style.background = 'var(--bg-card)'; btnBg.style.color = 'white';
                 btnMd.style.background = '#fff'; btnMd.style.color = '#333';
+                selectContainer.innerHTML = routeHtmlBgMd;
             } else {
                 btnMd.style.background = 'var(--bg-card)'; btnMd.style.color = 'white';
                 btnBg.style.background = '#fff'; btnBg.style.color = '#333';
+                selectContainer.innerHTML = routeHtmlMdBg;
             }
+            changeLanguage(localStorage.getItem('selectedLang') || 'bg');
             setTimeout(updateMap, 100);
+        }
+
+        function saveRoute() {
+            const direction = document.getElementById('btn-bg-md').style.background.includes('var(--bg-card)') ? 'bg-md' : 'md-bg';
+            const bgStop = document.getElementById('bg-stop').value;
+            const mdStop = document.getElementById('md-stop').value;
+            const routeInfo = `Посока: ${direction === 'bg-md' ? 'София ➔ Молдова' : 'Молдова ➔ София'}, BG спирка: ${bgStop}, MD спирка: ${mdStop}`;
+            localStorage.setItem('selectedRoute', routeInfo);
+            window.location.href = 'contact.html';
         }
 
         updateMap();
