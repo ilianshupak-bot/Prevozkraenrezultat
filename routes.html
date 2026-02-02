@@ -2,18 +2,22 @@
 <html lang="bg">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EuroTrans - Маршрути</title>
     <link rel="stylesheet" href="style.css">
     
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-     crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    
+    <style>
+        #map { height: 500px; width: 100%; border-radius: 10px; margin-top: 20px; z-index: 1; }
+        .route-controls { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .leaflet-routing-container { display: none !important; } /* Скриваме текстовите инструкции */
+    </style>
 </head>
 <body>
     <header>
-        <div class="container nav-container">
-            <a href="index.html" class="logo">EuroTrans</a>
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.png" alt="EuroTrans Logo" class="logo-img"></a>
             <nav>
                 <ul>
                     <li><a href="index.html" id="nav-home">Начало</a></li>
@@ -21,14 +25,7 @@
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
-                    <li>
-                        <select class="lang-select" onchange="changeLanguage(this.value)">
-                            <option value="bg">🇧🇬 BG</option>
-                            <option value="en">🇬🇧 EN</option>
-                            <option value="ru">🇷🇺 RU</option>
-                            <option value="ua">🇺🇦 UA</option>
-                        </select>
-                    </li>
+                    <li><select class="lang-select" onchange="changeLanguage(this.value)"><option value="bg">🇧🇬</option><option value="en">🇬🇧</option><option value="ru">🇷🇺</option><option value="ua">🇺🇦</option></select></li>
                 </ul>
             </nav>
         </div>
@@ -38,59 +35,28 @@
         <h1 class="page-title" id="routes-title">Планирайте своя маршрут</h1>
 
         <div class="route-controls">
-            <div class="route-toggles">
-                <button class="route-toggle-btn active" onclick="setDirection('bg-md')" id="btn-bg-md">🇧🇬 София ➔ 🇲🇩 Молдова</button>
-                <button class="route-toggle-btn" onclick="setDirection('md-bg')" id="btn-md-bg">🇲🇩 Молдова ➔ 🇧🇬 София</button>
+            <div style="margin-bottom: 15px;">
+                <button class="btn" style="background:var(--bg-card); color:white;" onclick="setDirection('bg-md')" id="btn-bg-md">🇧🇬 София ➔ 🇲🇩 Молдова</button>
+                <button class="btn" style="background:#fff; color:#333; border:1px solid #ccc;" onclick="setDirection('md-bg')" id="btn-md-bg">🇲🇩 Молдова ➔ 🇧🇬 София</button>
             </div>
-
-            <div class="route-options">
-                <p id="route-instruction">Изберете междинни спирки:</p>
-                
-                <div id="select-container" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; align-items: center;">
-                    
-                    <span class="static-city" id="city-sofia">София</span>
-                    <span>➝</span>
-                    
-                    <select id="bg-stop" onchange="updateMap()">
-                        <option value="none" id="opt-none">-- Директно --</option>
-                        <option value="stara_zagora" id="opt-sz">Стара Загора</option>
-                        <option value="varna" id="opt-varna">Варна</option>
-                        <option value="burgas" id="opt-burgas">Бургас</option>
-                    </select>
-                    
-                    <span>➝</span>
-                    <span class="static-city">Русе</span>
-                    <span>➝</span>
-                    <span class="static-city">Галац</span>
-                    <span>➝</span>
-                    <span class="static-city">Чадър-Лунга</span>
-                    <span>➝</span>
-
-                    <select id="md-stop" onchange="updateMap()">
-                        <option value="none" id="opt-none-2">-- Директно --</option>
-                        <option value="chisinau" id="opt-chisinau">Кишинев</option>
-                        <option value="tvarditsa" id="opt-tvarditsa">Твардица</option>
-                    </select>
-                </div>
+            
+            <div id="select-container" style="display:flex; justify-content:center; gap:10px; align-items:center; flex-wrap:wrap;">
+                <span class="static-city" id="city-sofia">София</span> ➝
+                <select id="bg-stop" onchange="updateMap()"><option value="none">-- Директно --</option><option value="stara_zagora">Стара Загора</option><option value="varna">Варна</option><option value="burgas">Бургас</option></select> ➝
+                <span>Русе</span> ➝ <span>Галац</span> ➝ <span>Чадър-Лунга</span> ➝
+                <select id="md-stop" onchange="updateMap()"><option value="none">-- Директно --</option><option value="chisinau">Кишинев</option><option value="tvarditsa">Твардица</option></select>
             </div>
-
-            <div id="map"></div>
         </div>
 
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="contact.html" class="btn" id="btn-contact-route">Запази пътуване</a>
-        </div>
+        <div id="map"></div>
     </main>
 
     <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-     crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
 
     <script>
-        // Координати на градовете
         const coords = {
             sofia: [42.6977, 23.3219],
             stara_zagora: [42.4258, 25.6345],
@@ -103,93 +69,65 @@
             tvarditsa: [46.1517, 28.9667]
         };
 
-        // Инициализация на картата
         var map = L.map('map').setView([44.5, 26.0], 6);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-        var currentPolyline = null;
-        var markers = [];
+        var routingControl = null;
 
-        function clearMap() {
-            if (currentPolyline) map.removeLayer(currentPolyline);
-            markers.forEach(m => map.removeLayer(m));
-            markers = [];
-        }
-
-        // Функция за обновяване на картата
         function updateMap() {
-            clearMap();
+            if (routingControl) {
+                map.removeControl(routingControl);
+                routingControl = null;
+            }
 
             const bgStop = document.getElementById('bg-stop').value;
             const mdStop = document.getElementById('md-stop').value;
-            const direction = document.querySelector('.route-toggle-btn.active').id;
+            const direction = document.getElementById('btn-bg-md').style.background.includes('var(--bg-card)') ? 'bg-md' : 'md-bg'; // Simple check
 
-            // Базов маршрут
-            let path = [];
-            let names = [];
+            let waypoints = [];
 
-            // Определяне на реда според посоката
-            if (direction === 'btn-bg-md') {
-                // София -> Молдова
-                path.push(coords.sofia); names.push("София");
-                
-                if (bgStop !== 'none') { path.push(coords[bgStop]); names.push(bgStop); }
-                
-                path.push(coords.ruse); names.push("Русе");
-                path.push(coords.galati); names.push("Галац");
-                path.push(coords.ceadir); names.push("Чадър-Лунга");
-
-                if (mdStop !== 'none') { path.push(coords[mdStop]); names.push(mdStop); }
-            
+            if (direction === 'bg-md' || !direction) { // Default bg-md
+                waypoints.push(L.latLng(coords.sofia));
+                if (bgStop !== 'none') waypoints.push(L.latLng(coords[bgStop]));
+                waypoints.push(L.latLng(coords.ruse));
+                waypoints.push(L.latLng(coords.galati));
+                waypoints.push(L.latLng(coords.ceadir));
+                if (mdStop !== 'none') waypoints.push(L.latLng(coords[mdStop]));
             } else {
-                // Молдова -> София
-                if (mdStop !== 'none') { path.push(coords[mdStop]); names.push(mdStop); }
-                
-                path.push(coords.ceadir); names.push("Чадър-Лунга");
-                path.push(coords.galati); names.push("Галац");
-                path.push(coords.ruse); names.push("Русе");
-
-                if (bgStop !== 'none') { path.push(coords[bgStop]); names.push(bgStop); }
-                
-                path.push(coords.sofia); names.push("София");
+                if (mdStop !== 'none') waypoints.push(L.latLng(coords[mdStop]));
+                waypoints.push(L.latLng(coords.ceadir));
+                waypoints.push(L.latLng(coords.galati));
+                waypoints.push(L.latLng(coords.ruse));
+                if (bgStop !== 'none') waypoints.push(L.latLng(coords[bgStop]));
+                waypoints.push(L.latLng(coords.sofia));
             }
 
-            // Рисуване на линията
-            currentPolyline = L.polyline(path, {color: 'blue', weight: 4}).addTo(map);
-            
-            // Добавяне на маркери
-            path.forEach((point, index) => {
-                let marker = L.marker(point).addTo(map)
-                    .bindPopup(`Спирка ${index + 1}`);
-                markers.push(marker);
-            });
-
-            // Центриране на картата
-            map.fitBounds(currentPolyline.getBounds(), {padding: [50, 50]});
+            routingControl = L.Routing.control({
+                waypoints: waypoints,
+                routeWhileDragging: false,
+                draggableWaypoints: false,
+                addWaypoints: false,
+                show: false, // Hide instructions
+                lineOptions: { styles: [{color: '#2563eb', opacity: 1, weight: 5}] },
+                createMarker: function(i, wp, nWps) {
+                    return L.marker(wp.latLng).bindPopup("Спирка " + (i+1));
+                }
+            }).addTo(map);
         }
 
         function setDirection(dir) {
-            const btnBgMd = document.getElementById('btn-bg-md');
-            const btnMdBg = document.getElementById('btn-md-bg');
-            const container = document.getElementById('select-container');
-
-            if (dir === 'bg-md') {
-                btnBgMd.classList.add('active');
-                btnMdBg.classList.remove('active');
-                // Подреди елементите нормално (София първа)
-                // За простота презареждаме HTML структурата визуално чрез CSS order или JS
-                // Тук просто ще извикаме updateMap, тъй като логиката е вътре
+            const btnBg = document.getElementById('btn-bg-md');
+            const btnMd = document.getElementById('btn-md-bg');
+            if(dir === 'bg-md') {
+                btnBg.style.background = 'var(--bg-card)'; btnBg.style.color = 'white';
+                btnMd.style.background = '#fff'; btnMd.style.color = '#333';
             } else {
-                btnBgMd.classList.remove('active');
-                btnMdBg.classList.add('active');
+                btnMd.style.background = 'var(--bg-card)'; btnMd.style.color = 'white';
+                btnBg.style.background = '#fff'; btnBg.style.color = '#333';
             }
-            updateMap();
+            setTimeout(updateMap, 100);
         }
 
-        // Първоначално зареждане
         updateMap();
     </script>
 </body>

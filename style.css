@@ -1,355 +1,339 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
+/* --- ОСНОВНИ ПРОМЕНЛИВИ --- */
 :root {
-    /* --- Тъмна цветова схема --- */
-    --bg-body: #0f172a;       /* Много тъмно синьо-сиво */
-    --bg-card: #1e293b;       /* По-светло синьо-сиво за картите */
-    --text-main: #e2e8f0;     /* Почти бял текст */
-    --text-muted: #94a3b8;    /* Сив текст за второстепенна инфо */
+    --primary: #22c55e;       /* Основно зелено */
+    --primary-dark: #16a34a;  /* Тъмно зелено */
+    --accent-blue: #3b82f6;   /* Акцентно синьо за декорации */
+    --bg-body: #f8fafc;       /* Много светло сив фон */
+    --bg-card: #ffffff;       /* Чисто бяло за картите */
+    --text-main: #111827;     /* Почти черно за висок контраст */
+    --text-muted: #4b5563;    /* Тъмно сиво за описания */
     
-    /* --- Акценти и Градиенти --- */
-    --primary-gradient: linear-gradient(135deg, #3b82f6, #2563eb); /* Синьо преливане */
-    --accent-gradient: linear-gradient(135deg, #f59e0b, #d97706);  /* Оранжево-златисто преливане */
-    
-    --white: #ffffff;
-    --border-light: rgba(255, 255, 255, 0.1); /* Тънки рамки */
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Дълбока сянка */
-    --glow: 0 0 15px rgba(59, 130, 246, 0.5); /* Светещ ефект */
-    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Силна сянка за контраст */
+    --shadow-strong: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 25px 50px -12px rgba(34, 197, 94, 0.25); /* Зеленикава сянка при ховър */
 }
 
-/* Анимация при зареждане */
-@keyframes fadeInUp {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- ФОН И СТРАНИЧНИ ДЕКОРАЦИИ --- */
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden; /* Скрива хоризонталния скрол от декорациите */
+    position: relative;
+    /* Анимация при зареждане */
+    animation: pageLoad 0.8s ease-out;
+}
+
+/* ЛЯВА ДЕКОРАЦИЯ (Зелено сияние) */
+body::before {
+    content: '';
+    position: fixed;
+    top: -100px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, rgba(255,255,255,0) 70%);
+    z-index: -1;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* ДЯСНА ДЕКОРАЦИЯ (Синьо сияние) */
+body::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    right: -150px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, rgba(255,255,255,0) 70%);
+    z-index: -1;
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+/* Анимация на декорациите */
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(20px, 30px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.7;
-    color: var(--text-main);
-    background-color: var(--bg-body);
-    /* Фин фон с преливане */
-    background-image: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    animation: fadeInUp 0.8s ease-out;
+@keyframes pageLoad {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 
-/* --- Стъклено Меню (Glassmorphism) --- */
+/* --- HEADER --- */
 header {
-    background: rgba(15, 23, 42, 0.85); /* Полупрозрачно */
-    backdrop-filter: blur(10px);        /* Ефект на матирано стъкло */
-    border-bottom: 1px solid var(--border-light);
-    padding: 1rem 0;
+    background: rgba(255, 255, 255, 0.95); /* Леко прозрачен */
+    backdrop-filter: blur(10px); /* Ефект на матово стъкло */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.logo {
-    font-size: 1.8rem;
-    font-weight: 600;
-    text-decoration: none;
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* Текстът е с цвят на градиент */
-    letter-spacing: 1px;
+.logo-img {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.logo-img:hover {
+    transform: scale(1.05) rotate(-2deg);
 }
 
 nav ul {
-    list-style: none;
     display: flex;
-    margin: 0;
-    padding: 0;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
 }
 
-nav ul li {
-    margin-left: 25px;
-}
-
-nav ul li a {
-    color: var(--text-muted);
+nav a {
     text-decoration: none;
-    font-weight: 500;
+    color: var(--text-main);
+    font-weight: 700; /* По-дебел шрифт */
+    font-size: 1.05rem;
     position: relative;
-    transition: var(--transition);
+    transition: color 0.3s;
 }
 
-nav ul li a:hover, nav ul li a.active {
-    color: var(--white);
-    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+nav a:hover, nav a.active {
+    color: var(--primary);
 }
 
-/* Линия под линковете */
-nav ul li a::after {
+nav a::after {
     content: '';
     position: absolute;
     width: 0;
-    height: 2px;
-    bottom: -5px;
+    height: 3px;
+    bottom: -6px;
     left: 0;
-    background: var(--primary-gradient);
+    background: linear-gradient(90deg, var(--primary), var(--accent-blue));
     transition: width 0.3s;
+    border-radius: 2px;
 }
 
-nav ul li a:hover::after,
-nav ul li a.active::after {
+nav a:hover::after, nav a.active::after {
     width: 100%;
 }
 
-/* --- Съдържание --- */
-main {
-    flex: 1;
-    padding: 60px 0;
-}
-
-h1, h2, h3 {
-    color: var(--white);
-    margin-top: 0;
+/* --- КОНТЕЙНЕРИ И КАРТИ (Акцент върху контраста) --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    position: relative; /* За да е над фона */
+    z-index: 1;
 }
 
 .page-title {
     text-align: center;
-    margin-bottom: 50px;
-    font-size: 2.5rem;
-    position: relative;
-    display: inline-block;
-}
-
-.page-title::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background: var(--accent-gradient);
-    margin: 15px auto 0;
-    border-radius: 2px;
-}
-
-/* --- Карти --- */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-.card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-light); /* Тънка рамка */
-    border-radius: 16px;
-    padding: 25px;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    overflow: hidden;
-    position: relative;
-}
-
-/* Ефект при посочване */
-.card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(59, 130, 246, 0.5);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-}
-
-.card h3 {
-    color: #60a5fa; /* По-светло синьо за заглавията в картите */
-}
-
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    opacity: 0.9;
-    transition: var(--transition);
-}
-
-.card:hover img {
-    opacity: 1;
-    transform: scale(1.02);
-}
-
-/* --- Таблица --- */
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    box-shadow: var(--shadow);
-    border-radius: 16px;
-    overflow: hidden;
-    margin-top: 20px;
-}
-
-th, td {
-    padding: 20px 25px;
-    text-align: left;
-    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 3rem;
     color: var(--text-main);
+    font-size: 2.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    /* Текстова сянка за изпъкване */
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+    animation: fadeIn 0.8s ease-out;
 }
 
-th {
-    background: rgba(30, 41, 59, 0.9);
-    color: #60a5fa;
-    text-transform: uppercase;
-    font-size: 0.85rem;
-    letter-spacing: 1.2px;
+/* Добавяме градиент на основното заглавие ако има id="hero-title" */
+#hero-title {
+    background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
 }
 
-tr:hover td {
-    background-color: rgba(255, 255, 255, 0.05); /* Лек светъл ефект при ред */
-}
-
-/* --- Форми и Inputs --- */
-input, select, textarea {
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0 20px 0;
-    border: 1px solid var(--border-light);
-    border-radius: 8px;
-    background: #0f172a; /* Много тъмен фон за полетата */
-    color: var(--white);
-    font-family: inherit;
-    transition: var(--transition);
-    box-sizing: border-box;
-}
-
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    background: #151e32;
-}
-
-/* --- Бутони --- */
-.btn {
-    display: inline-block;
-    background: var(--accent-gradient);
-    color: white;
-    padding: 12px 35px;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
-    text-align: center;
-}
-
-.btn:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5); /* Силно светене при ховър */
-}
-
-/* --- Footer --- */
-footer {
-    background: #0b1120; /* Почти черно */
-    border-top: 1px solid var(--border-light);
-    color: var(--text-muted);
-    text-align: center;
-    padding: 40px 0;
-    font-size: 0.9rem;
-}
-/* --- Езиково меню --- */
-.lang-select {
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--white);
-    border: 1px solid var(--border-light);
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-left: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-family: 'Poppins', sans-serif;
-}
-
-.lang-select option {
-    background: var(--bg-card); /* Тъмен фон за опциите */
-    color: var(--white);
-}
-/* Запази старите стилове и добави/промени тези */
-:root {
-    --primary: #2563eb;
-    --dark: #1e293b;
-    --light: #f8fafc;
-    --text-muted: #94a3b8;
-    --bg-card: #1f2937;
-}
-
-/* ... (старите стилове за body, header, nav остават същите) ... */
-
-/* Увери се, че .grid е настроен добре за 2 колони */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-/* Стилове за Картата и Контролите в routes.html */
-#map {
-    height: 400px;
-    width: 100%;
-    border-radius: 10px;
-    margin-top: 20px;
-    z-index: 1; /* Да не покрива менюто */
-}
-
-.route-controls {
+.card, .content-box {
     background: var(--bg-card);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    text-align: center;
+    padding: 2.5rem;
+    border-radius: 20px; /* По-заоблени ъгли */
+    /* Силна сянка за отделяне от фона */
+    box-shadow: var(--shadow-strong);
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Лек бял кант */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
 }
 
-.route-toggles {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+/* Декоративна цветна лента отгоре на картите */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary), var(--accent-blue));
+    opacity: 0.8;
 }
 
-.route-toggle-btn {
-    padding: 10px 20px;
-    background: #374151;
-    color: white;
-    border: 1px solid #4b5563;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.route-toggle-btn.active {
-    background: var(--primary);
+.card:hover, .content-box:hover {
+    transform: translateY(-10px) scale(1.01);
+    box-shadow: var(--shadow-hover);
     border-color: var(--primary);
 }
 
-.route-options select {
-    padding: 10px;
-    border-radius: 5px;
-    background: #374151;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+}
+
+/* --- ТИПОГРАФИЯ АКЦЕНТИ --- */
+.card h3, .content-box h2 {
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.card p, .content-box p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* --- БУТОНИ (Градиент и блясък) --- */
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     color: white;
-    border: 1px solid #4b5563;
-    margin: 5px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    letter-spacing: 0.5px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.6);
+    filter: brightness(1.1);
+}
+
+/* --- ЕТИКЕТИ И ИКОНИ --- */
+.price-tag {
+    background: linear-gradient(135deg, var(--primary), var(--accent-blue));
+    color: white;
+    padding: 6px 18px;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.card .icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    /* Сянка под иконата */
+    filter: drop-shadow(0 5px 5px rgba(0,0,0,0.1));
+    transition: transform 0.3s;
+}
+
+.card:hover .icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* --- СНИМКИ --- */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    /* Сянка на самите снимки */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* --- Map & Form Controls --- */
+.route-controls {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-strong);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 25px;
+    z-index: 1;
+    box-shadow: var(--shadow-strong);
+    border: 5px solid white;
+}
+
+select, input[type="text"], input[type="email"] {
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+    background: #f9fafb;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s;
+}
+
+select:focus, input:focus {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .page-title {
+        font-size: 2rem;
+    }
+    body::before, body::after {
+        opacity: 0.5; /* Намаляваме ефектите на мобилни */
+    }
 }
