@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="container nav-container">
-            <a href="index.html" class="logo">EuroTrans</a>
+             <a href="index.html"><img src="FIP.jpg" alt="EuroTrans Logo" class="logo-img"></a>
             <nav>
                 <ul>
                     <li><a href="index.html" id="nav-home">Начало</a></li>
@@ -19,10 +19,10 @@
                     <li><a href="contact.html" class="active" id="nav-contact">Контакти</a></li>
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
-                            <option value="bg">🇧🇬 BG</option>
-                            <option value="en">🇬🇧 EN</option>
-                            <option value="ru">🇷🇺 RU</option>
-                            <option value="ua">🇺🇦 UA</option>
+                            <option value="bg">BG</option>
+                            <option value="en">EN</option>
+                            <option value="ru">RU</option>
+                            <option value="ua">UA</option>
                         </select>
                     </li>
                 </ul>
@@ -69,6 +69,8 @@
         <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
     </footer>
     
+    <button id="scroll-to-top">↑</button>
+
     <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
     
@@ -78,6 +80,30 @@
             e.preventDefault();
             alert("Благодарим ви! Съобщението е изпратено успешно.");
             e.target.reset();
+        });
+    </script>
+    <script>
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+            if (scrollTop > 200) {
+                scrollToTopBtn.style.display = 'block';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>

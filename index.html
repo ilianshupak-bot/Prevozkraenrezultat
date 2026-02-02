@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EuroTrans - Начало</title>
+    <title>FIP - Начало</title>
     <link rel="stylesheet" href="style.css">
     <style>
         /* ВИЗУАЛНИ ЕФЕКТИ */
@@ -35,7 +35,7 @@
 <body>
     <header>
         <div class="container nav-container">
-            <a href="index.html" class="logo">EuroTrans</a>
+            <a href="index.html"><img src="FIP.jpg" alt="EuroTrans Logo" class="logo-img"></a>
             <nav>
                 <ul>
                     <li><a href="index.html" class="active" id="nav-home">Начало</a></li>
@@ -46,7 +46,7 @@
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
                             <option value="bg">🇧🇬</option>
-                            <option value="en">🇬🇧</option>
+                            <option value="en">ЕN</option>
                             <option value="ru">🇷🇺</option>
                             <option value="ua">🇺🇦</option>
                         </select>
@@ -113,7 +113,33 @@
         <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
     </footer>
 
+    <button id="scroll-to-top">↑</button>
+
     <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
+    <script>
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+            if (scrollTop > 200) {
+                scrollToTopBtn.style.display = 'block';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>

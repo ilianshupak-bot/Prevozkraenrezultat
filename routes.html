@@ -17,7 +17,7 @@
 <body>
     <header>
         <div class="nav-container">
-            <a href="index.html"><img src="logo.png" alt="EuroTrans Logo" class="logo-img"></a>
+            <a href="index.html"><img src="FIP.jpg" alt="EuroTrans Logo" class="logo-img"></a>
             <nav>
                 <ul>
                     <li><a href="index.html" id="nav-home">Начало</a></li>
@@ -129,6 +129,33 @@
         }
 
         updateMap();
+    </script>
+
+    <button id="scroll-to-top">↑</button>
+
+    <script>
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+            lastScrollTop = scrollTop;
+            if (scrollTop > 200) {
+                scrollToTopBtn.style.display = 'block';
+            } else {
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>

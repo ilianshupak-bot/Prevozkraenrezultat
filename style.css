@@ -30,6 +30,9 @@ body {
     /* Анимация при зареждане */
     animation: pageLoad 0.8s ease-out;
 }
+aside{
+
+}
 
 /* ЛЯВА ДЕКОРАЦИЯ (Зелено сияние) */
 body::before {
@@ -85,13 +88,18 @@ header {
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+header.hidden {
+    transform: translateY(-100%);
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 0.5rem 1rem;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -336,4 +344,28 @@ select:focus, input:focus {
     body::before, body::after {
         opacity: 0.5; /* Намаляваме ефектите на мобилни */
     }
+}
+
+/* Scroll to top button */
+#scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s;
+    z-index: 1001;
+    display: none;
+}
+
+#scroll-to-top:hover {
+    background: var(--primary-dark);
+    transform: scale(1.1);
 }
