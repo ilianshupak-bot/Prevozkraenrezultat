@@ -30,12 +30,31 @@
         
         /* За да не се чупи хедъра */
         header { background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        .nav-button-container {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .nav-button-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .nav-button-container button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <header>
-        <div class="container nav-container">
-            <a href="index.html"><img src="FIP.jpg" alt="EuroTrans Logo" class="logo-img"></a>
+        <div class="nav-container">
+            <a href="index.html">
+                <img src="logo.png" alt="EuroTrans Logo" class="logo-img">
+            </a>
             <nav>
                 <ul>
                     <li><a href="index.html" class="active" id="nav-home">Начало</a></li>
@@ -46,7 +65,7 @@
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
                             <option value="bg">🇧🇬</option>
-                            <option value="en">ЕN</option>
+                            <option value="en">🇬🇧</option>
                             <option value="ru">🇷🇺</option>
                             <option value="ua">🇺🇦</option>
                         </select>
@@ -54,8 +73,13 @@
                 </ul>
             </nav>
         </div>
-    </header>
 
+        <div class="header-intro">
+            <h1 id="hero-title">Пътувайте комфортно и сигурно</h1>
+            <p id="hero-subtitle">Вашият надежден партньор за транспорт между България и Молдова.</p>
+            <a href="schedule.html" class="btn" id="hero-btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Виж разписанието</a>
+        </div>
+    </header>
     <section class="hero">
         <div class="container hero-content">
             <h1 id="hero-title">Пътувайте комфортно и сигурно</h1>

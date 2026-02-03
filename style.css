@@ -80,20 +80,43 @@ body::after {
 }
 
 /* --- HEADER --- */
+/* --- ОБНОВЕН HEADER (С вградено интро) --- */
 header {
-    background: rgba(255, 255, 255, 0.95); /* Леко прозрачен */
-    backdrop-filter: blur(10px); /* Ефект на матово стъкло */
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: 1px solid rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+    padding-bottom: 1rem; /* Място отдолу */
 }
 
-header.hidden {
-    transform: translateY(-100%);
+.header-intro {
+    text-align: center;
+    padding: 1rem 0 0 0;
+    border-top: 1px solid #f1f5f9; /* Тънка разделителна линия */
+    margin-top: 0.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 0.8s ease-out;
 }
+
+.header-intro h1 {
+    font-size: 1.5rem; /* По-малък шрифт, за да пасне в хедъра */
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.header-intro p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+/* Скриваме старата hero секция, защото я местим горе */
+.hero { display: none; }
 
 .nav-container {
     display: flex;
@@ -105,7 +128,7 @@ header.hidden {
 }
 
 .logo-img {
-    height: 50px;
+    height: 100px;
     width: auto;
     object-fit: contain;
     transition: transform 0.3s;

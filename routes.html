@@ -159,6 +159,19 @@
             window.location.href = 'contact.html';
         }
 
+        function updateBooking() {
+            // Логика за обновяване на бутони за запазване на място
+            document.querySelectorAll('.booking-button').forEach(button => {
+                button.onclick = function() {
+                    if (selectedDate === 'friday') {
+                        location.href = 'routes.html'; // Пренасочване към маршрути за петък
+                    } else if (selectedDate === 'sunday') {
+                        location.href = 'routes.html'; // Пренасочване към маршрути за неделя
+                    }
+                };
+            });
+        }
+
         updateMap();
     </script>
 
