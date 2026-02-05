@@ -12,11 +12,19 @@
             <nav>
                 <ul>
                     <li><a href="index.html" id="nav-home">Начало</a></li>
-                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                    <li><a href="documents.html" id="nav-docs">Документи</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
                     <li><a href="contact.html" class="active" id="nav-contact">Контакти</a></li>
-                    <li><select class="lang-select" onchange="changeLanguage(this.value)"><option value="bg">🇧🇬</option><option value="en">🇬🇧</option><option value="ru">🇷🇺</option><option value="ua">🇺🇦</option></select></li>
+                    <li>
+                        <select class="lang-select" onchange="changeLanguage(this.value)">
+                            <option value="bg">🇧🇬</option>
+                            <option value="en">🇬🇧</option>
+                            <option value="ru">🇷🇺</option>
+                            <option value="ua">🇺🇦</option>
+                        </select>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -40,7 +48,7 @@
 
             <div class="content-box">
                 <h2 id="form-title">Резервация / Запитване</h2>
-                <form action="#" method="POST" id="booking-form">
+                <form id="booking-form">
                     
                     <div style="margin-bottom: 15px;">
                         <label for="name" style="display:block; margin-bottom:5px;">Име и Фамилия</label>
@@ -67,6 +75,11 @@
                     </div>
 
                     <div style="margin-bottom: 15px;">
+                        <label for="pickup-address" style="display:block; margin-bottom:5px;">Адрес за вземане</label>
+                        <input type="text" id="pickup-address" name="pickup-address" style="width: 100%;" placeholder="Въведете адреса на вземане" required>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
                         <label for="message" style="display:block; margin-bottom:5px;">Допълнителна информация</label>
                         <textarea id="message" name="message" rows="4" style="width: 100%; padding: 10px; border-radius: 8px; border: 2px solid #e5e7eb; background:#f9fafb;"></textarea>
                     </div>
@@ -76,61 +89,47 @@
             </div>
         </div>
     </main>
-
-    <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
 
     <script>
-        // 1. Функция за намиране на следващия ден от седмицата (5 = Петък, 0 = Неделя)
+        // --- ЛОГИКА ЗА ДАТИТЕ ---
         function getNextDayOfWeek(date, dayOfWeek) {
             const resultDate = new Date(date.getTime());
             resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
-            
-            // Ако днес е търсения ден, може да искаме следващата седмица или днес. 
-            // Тук слагаме проста логика: ако е днес, остава днес.
             return resultDate;
         }
 
-        // 2. Форматиране на датата (ДД.ММ)
         function formatDate(date) {
             let d = date.getDate();
             let m = date.getMonth() + 1;
             return (d < 10 ? '0'+d : d) + '.' + (m < 10 ? '0'+m : m);
         }
 
-        // 3. Инициализация при зареждане
         window.addEventListener('DOMContentLoaded', () => {
             const dateSelect = document.getElementById('travel-date');
             const routeSelect = document.getElementById('route');
             const today = new Date();
 
-            // Намери следващия Петък (ден 5)
             let nextFriday = getNextDayOfWeek(today, 5);
-            // Ако днес е петък и е минало 16:00, може да вземеш по-следващия, но нека е просто
             if (today.getDay() === 5 && today.getHours() >= 16) {
                 nextFriday.setDate(nextFriday.getDate() + 7);
             }
 
-            // Намери следващата Неделя (ден 0)
             let nextSunday = getNextDayOfWeek(today, 0);
             if (today.getDay() === 0 && today.getHours() >= 8) {
                 nextSunday.setDate(nextSunday.getDate() + 7);
             }
 
-            // Добави опциите в селекта
-            // Option 1: Петък
             let optFri = document.createElement('option');
             optFri.value = 'friday';
             optFri.text = `Петък (${formatDate(nextFriday)})`;
             dateSelect.add(optFri);
 
-            // Option 2: Неделя
             let optSun = document.createElement('option');
             optSun.value = 'sunday';
             optSun.text = `Неделя (${formatDate(nextSunday)})`;
             dateSelect.add(optSun);
 
-            // 4. Проверка на URL параметрите (ако идваме от Schedule страницата)
             const urlParams = new URLSearchParams(window.location.search);
             const dayParam = urlParams.get('day');
 
@@ -140,35 +139,41 @@
                 dateSelect.value = 'sunday';
             }
 
-            // Извикваме логиката веднъж при старт
+            // Зареждане на маршрута от localStorage (идва от routes.html)
+            const selectedRoute = localStorage.getItem('selectedRoute');
+            if (selectedRoute) {
+                // Определяне на посоката от selectedRoute
+                if (selectedRoute.includes('София ➔ Молдова')) {
+                    routeSelect.value = 'sofia-moldova';
+                } else if (selectedRoute.includes('Молдова ➔ София')) {
+                    routeSelect.value = 'moldova-sofia';
+                }
+                // Можем да покажем и информацията (опционално)
+                console.log('Зареден маршрут:', selectedRoute);
+            }
+
             updateRouteBasedOnDate();
         });
 
-        // 5. Логика: Смяна на маршрута според датата
         function updateRouteBasedOnDate() {
             const dateSelect = document.getElementById('travel-date');
             const routeSelect = document.getElementById('route');
             const selectedValue = dateSelect.value;
 
-            // Нулираме всички опции да са видими първо
             for (let i = 0; i < routeSelect.options.length; i++) {
                 routeSelect.options[i].disabled = false;
                 routeSelect.options[i].hidden = false;
             }
 
             if (selectedValue === 'friday') {
-                // Ако е Петък -> Само София към Молдова
                 routeSelect.value = 'sofia-moldova';
-                // Скриваме/Деактивираме другата опция
                 for (let i = 0; i < routeSelect.options.length; i++) {
                     if (routeSelect.options[i].value === 'moldova-sofia') {
                         routeSelect.options[i].disabled = true;
                     }
                 }
             } else if (selectedValue === 'sunday') {
-                // Ако е Неделя -> Само Молдова към София
                 routeSelect.value = 'moldova-sofia';
-                // Скриваме/Деактивираме другата опция
                 for (let i = 0; i < routeSelect.options.length; i++) {
                     if (routeSelect.options[i].value === 'sofia-moldova') {
                         routeSelect.options[i].disabled = true;
@@ -177,5 +182,79 @@
             }
         }
     </script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // 1. КОНФИГУРАЦИЯ (Твоите данни са попълнени)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGEPxa0rGPyByiY8Tp3GaiflGnApQocgU",
+            authDomain: "prevozmoldovabulgaria.firebaseapp.com",
+            projectId: "prevozmoldovabulgaria",
+            storageBucket: "prevozmoldovabulgaria.firebasestorage.app",
+            messagingSenderId: "970743272899",
+            appId: "1:970743272899:web:c27df38bd186bd7e7a1976",
+            measurementId: "G-2DDCLMRE0W"
+        };
+
+        // 2. Инициализация
+        try {
+            firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore();
+            console.log("Firebase е свързан успешно!");
+
+            // 3. Обработка на формата
+            const form = document.getElementById('booking-form');
+            
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Спира презареждането
+
+                const btn = document.getElementById('btn-send');
+                const originalText = btn.innerText;
+                
+                btn.innerText = "Изпращане...";
+                btn.disabled = true;
+
+                // Събиране на данните
+                const formData = {
+                    name: document.getElementById('name').value,
+                    phone: document.getElementById('phone').value,
+                    date: document.getElementById('travel-date').value,
+                    route: document.getElementById('route').value,
+                    pickupAddress: document.getElementById('pickup-address').value,
+                    selectedRoute: localStorage.getItem('selectedRoute') || 'Не е посочен',
+                    message: document.getElementById('message').value,
+                    time: new Date().toLocaleString()
+                };
+
+                // Изпращане към Firebase
+                db.collection("reservations").add(formData)
+                .then(function(docRef) {
+                    alert("✅ Резервацията е изпратена успешно!");
+                    form.reset(); 
+                    // Отчистване на selectedRoute от localStorage
+                    localStorage.removeItem('selectedRoute');
+                    // Нулиране на датата и маршрута след изчистване
+                    updateRouteBasedOnDate(); 
+                })
+                .catch(function(error) {
+                    console.error("Error:", error);
+                    alert("❌ Грешка: " + error.message);
+                })
+                .finally(function() {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                });
+            });
+
+        } catch (error) {
+            console.error("Firebase Init Error:", error);
+            alert("Грешка при зареждане на системата: " + error.message);
+        }
+    </script>
+
+    <button id="scroll-to-top">↑</button>
+    <script src="scroll.js"></script>
 </body>
 </html>

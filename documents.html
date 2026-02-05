@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>EuroTrans - Необходими документи</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- СПЕЦИАЛНИ СТИЛОВЕ ЗА ТАЗИ СТРАНИЦА --- */
+        /* Можеш да преместиш това в style.css по-късно */
+        
+        .docs-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row; /* Текст ляво, снимка дясно */
+        }
+
+        .docs-content {
+            padding: 30px;
+            flex: 1;
+        }
+
+        .docs-image {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+            min-height: 300px;
+        }
+
+        /* На мобилни телефони снимката отива най-горе */
+        @media (max-width: 768px) {
+            .docs-section {
+                flex-direction: column-reverse;
+            }
+            .docs-image {
+                height: 200px;
+            }
+        }
+
+        .flag-icon {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+
+        .doc-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .doc-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: start;
+        }
+
+        .doc-list i {
+            color: #2563eb; /* Синьо като логото */
+            margin-right: 12px;
+            margin-top: 4px;
+            font-size: 1.1em;
+        }
+
+        .warning-box {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html"><img src="logo.png" alt="EuroTrans Logo" class="logo-img"></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" id="nav-home">Начало</a></li>
+                    <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                    <li><a href="documents.html" class="active" id="nav-docs">Документи</a></li>
+                    <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
+                    <li><a href="contact.html" id="nav-contact">Контакти</a></li>
+                    <li>
+                        <select class="lang-select" onchange="changeLanguage(this.value)">
+                            <option value="bg">🇧🇬</option>
+                            <option value="en">🇬🇧</option>
+                            <option value="ru">🇷🇺</option>
+                            <option value="ua">🇺🇦</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title" id="page-title">Необходими документи за пътуване</h1>
+        
+        <div class="docs-section">
+            <div class="docs-content">
+                <h2 id="title-bg-ro"><span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> България - Румъния</h2>
+                <p id="desc-bg-ro">Тъй като и двете страни са в ЕС, преминаването е облекчено, но задължително се изискват документи за самоличност.</p>
+                
+                <ul class="doc-list">
+                    <li>
+                        <i class="fas fa-id-card"></i>
+                        <span id="list-bg-ro-1"><strong>Лична карта</strong> или валиден задграничен паспорт.</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-child"></i>
+                        <span id="list-bg-ro-2"><strong>За деца под 18г:</strong> Паспорт. Ако пътува само с един родител - нотариално заверена декларация от другия.</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-car"></i>
+                        <span id="list-bg-ro-3"><strong>За автомобила:</strong> Малък талон и застраховка Гражданска отговорност (зелена карта).</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="docs-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Danube_Bridge_Giurgiu_Ruse.jpg/1200px-Danube_Bridge_Giurgiu_Ruse.jpg');"></div>
+        </div>
+
+        <div class="docs-section">
+            <div class="docs-content">
+                <h2 id="title-ro-md"><span class="flag-icon">🇷🇴 ➔ 🇲🇩</span> Румъния - Молдова</h2>
+                <p id="desc-ro-md">Напускане на Европейския съюз и влизане в Република Молдова.</p>
+                
+                <ul class="doc-list">
+                    <li>
+                        <i class="fas fa-passport"></i>
+                        <span id="list-ro-md-1"><strong>Задграничен паспорт</strong> (валиден минимум 3 месеца след датата на влизане).</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-file-contract"></i>
+                        <span id="list-ro-md-2"><strong>Зелена карта:</strong> Проверете дали застраховката ви покрива Молдова (MD).</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-road"></i>
+                        <span id="list-ro-md-3"><strong>Винетка за Молдова:</strong> Купува се на границата или онлайн (Vinieta).</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="docs-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/23/Vama_Leuseni.jpg');"></div>
+        </div>
+
+        <div class="docs-section">
+            <div class="docs-content">
+                <h2 id="title-md-ro"><span class="flag-icon">🇲🇩 ➔ 🇷🇴</span> Молдова - Румъния</h2>
+                <p id="desc-md-ro">Влизане в ЕС. Граничният контрол е по-строг.</p>
+                
+                <ul class="doc-list">
+                    <li>
+                        <i class="fas fa-passport"></i>
+                        <span id="list-md-ro-1"><strong>Биометричен паспорт</strong> (за безвизово пътуване до 90 дни).</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span id="list-md-ro-2"><strong>Финансови средства:</strong> Може да изискат доказателство за налични средства (мин. 50 евро/ден).</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-briefcase-medical"></i>
+                        <span id="list-md-ro-3"><strong>Медицинска застраховка:</strong> Силно препоръчителна.</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-ban"></i>
+                        <span id="list-md-ro-4"><strong>Забрани:</strong> Цигари (макс 2 кутии), алкохол (1 л), месо и млечни продукти са забранени.</span>
+                    </li>
+                </ul>   
+            </div>
+            <div class="docs-image" style="background-image: url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/56/6c/5e/romanian-athenaeum.jpg?w=1200&h=-1&s=1');"></div>
+        </div>
+
+    </main>
+
+    <script src="lang.js"></script> 
+    
+    <script>
+        // Речник специално за тази страница
+        const docTranslations = {
+            'bg': {
+                'nav-docs': 'Документи',
+                'page-title': 'Необходими документи за пътуване',
+                
+                'title-bg-ro': '<span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> България - Румъния',
+                'desc-bg-ro': 'Тъй като и двете страни са в ЕС, преминаването е облекчено, но задължително се изискват документи.',
+                'list-bg-ro-1': '<strong>Лична карта</strong> или валиден задграничен паспорт.',
+                'list-bg-ro-2': '<strong>За деца под 18г:</strong> Паспорт + Нотариално заверена декларация (ако е с 1 родител).',
+                'list-bg-ro-3': '<strong>За автомобила:</strong> Малък талон и Гражданска отговорност.',
+
+                'title-ro-md': '<span class="flag-icon">🇷🇴 ➔ 🇲🇩</span> Румъния - Молдова',
+                'desc-ro-md': 'Напускане на ЕС и влизане в Република Молдова.',
+                'list-ro-md-1': '<strong>Задграничен паспорт</strong> (валиден мин. 3 месеца).',
+                'list-ro-md-2': '<strong>Зелена карта:</strong> Проверете дали покрива Молдова (MD).',
+                'list-ro-md-3': '<strong>Винетка за Молдова:</strong> Купува се на границата или онлайн.',
+
+                'title-md-ro': '<span class="flag-icon">🇲🇩 ➔ 🇷🇴</span> Молдова - Румъния',
+                'desc-md-ro': 'Влизане в ЕС. Граничният контрол е по-строг.',
+                'list-md-ro-1': '<strong>Биометричен паспорт</strong> (за безвизово пътуване).',
+                'list-md-ro-2': '<strong>Финанси:</strong> Доказателство за средства (мин. 50 евро/ден).',
+                'list-md-ro-3': '<strong>Медицинска застраховка:</strong> Силно препоръчителна.',
+                'list-md-ro-4': '<strong>Лимит:</strong> Макс 2 кутии цигари, 1л алкохол. Без месо/мляко.',
+                'warning-text': '⚠️ Внимание: Подгответе документите си предварително, за да избегнете забавяне.'
+            },
+            'en': {
+                'nav-docs': 'Documents',
+                'page-title': 'Required Travel Documents',
+
+                'title-bg-ro': '<span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> Bulgaria - Romania',
+                'desc-bg-ro': 'Both countries are in the EU. Crossing is easier, but ID is mandatory.',
+                'list-bg-ro-1': '<strong>ID Card</strong> or valid Passport.',
+                'list-bg-ro-2': '<strong>Children under 18:</strong> Passport + Notarized declaration (if with 1 parent).',
+                'list-bg-ro-3': '<strong>Car docs:</strong> Registration card and Green Card insurance.',
+
+                'title-ro-md': '<span class="flag-icon">🇷🇴 ➔ 🇲🇩</span> Romania - Moldova',
+                'desc-ro-md': 'Leaving the EU and entering the Republic of Moldova.',
+                'list-ro-md-1': '<strong>Passport</strong> (valid for at least 3 months).',
+                'list-ro-md-2': '<strong>Green Card:</strong> Ensure it covers Moldova (MD).',
+                'list-ro-md-3': '<strong>Moldova Vignette:</strong> Buy at border or online.',
+
+                'title-md-ro': '<span class="flag-icon">🇲🇩 ➔ 🇷🇴</span> Moldova - Romania',
+                'desc-md-ro': 'Entering the EU. Border control is stricter.',
+                'list-md-ro-1': '<strong>Biometric Passport</strong> (for visa-free travel).',
+                'list-md-ro-2': '<strong>Funds:</strong> Proof of funds may be requested (min 50 EUR/day).',
+                'list-md-ro-3': '<strong>Medical Insurance:</strong> Highly recommended.',
+                'list-md-ro-4': '<strong>Limits:</strong> Max 2 packs cigarettes, 1L alcohol. No meat/dairy.',
+                'warning-text': '⚠️ Warning: Have your documents ready to avoid delays.'
+            },
+            'ru': {
+                'nav-docs': 'Документы',
+                'page-title': 'Необходимые документы',
+
+                'title-bg-ro': '<span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> Болгария - Румыния',
+                'desc-bg-ro': 'Обе страны в ЕС. Переход упрощен, но документы обязательны.',
+                'list-bg-ro-1': '<strong>Личная карта</strong> (ID) или загранпаспорт.',
+                'list-bg-ro-2': '<strong>Дети до 18:</strong> Паспорт + Нотариальная доверенность (если с 1 родителем).',
+                'list-bg-ro-3': '<strong>Автомобиль:</strong> Техпаспорт и Зеленая карта.',
+
+                'title-ro-md': '<span class="flag-icon">🇷🇴 ➔ 🇲🇩</span> Румыния - Молдова',
+                'desc-ro-md': 'Выезд из ЕС и въезд в Республику Молдова.',
+                'list-ro-md-1': '<strong>Загранпаспорт</strong> (валиден мин. 3 месяца).',
+                'list-ro-md-2': '<strong>Зеленая карта:</strong> Проверьте покрытие Молдовы (MD).',
+                'list-ro-md-3': '<strong>Виньетка (Moldova):</strong> Купить на границе или онлайн.',
+
+                'title-md-ro': '<span class="flag-icon">🇲🇩 ➔ 🇷🇴</span> Молдова - Румыния',
+                'desc-md-ro': 'Въезд в ЕС. Контроль более строгий.',
+                'list-md-ro-1': '<strong>Биометрический паспорт</strong> (для безвиза).',
+                'list-md-ro-2': '<strong>Финансы:</strong> Подтверждение средств (мин 50 евро/день).',
+                'list-md-ro-3': '<strong>Мед. страховка:</strong> Настоятельно рекомендуется.',
+                'list-md-ro-4': '<strong>Лимит:</strong> Макс 2 пачки сигарет, 1л алкоголя. Мясо/молоко запрещено.',
+                'warning-text': '⚠️ Внимание: Подготовьте документы заранее, чтобы избежать задержек.'
+            },
+            'ua': {
+                'nav-docs': 'Документи',
+                'page-title': 'Необхідні документи',
+
+                'title-bg-ro': '<span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> Болгарія - Румунія',
+                'desc-bg-ro': 'Обидві країни в ЄС. Перехід спрощений, але документи обов’язкові.',
+                'list-bg-ro-1': '<strong>ID-картка</strong> або закордонний паспорт.',
+                'list-bg-ro-2': '<strong>Діти до 18:</strong> Паспорт + Нотаріальне доручення (якщо з 1 батьком).',
+                'list-bg-ro-3': '<strong>Автомобіль:</strong> Техпаспорт та Зелена картка.',
+
+                'title-ro-md': '<span class="flag-icon">🇷🇴 ➔ 🇲🇩</span> Румунія - Молдова',
+                'desc-ro-md': 'Виїзд з ЄС та в’їзд до Республіки Молдова.',
+                'list-ro-md-1': '<strong>Закордонний паспорт</strong> (дійсний мін. 3 місяці).',
+                'list-ro-md-2': '<strong>Зелена картка:</strong> Перевірте покриття Молдови (MD).',
+                'list-ro-md-3': '<strong>Він’єтка (Moldova):</strong> Купити на кордоні або онлайн.',
+
+                'title-md-ro': '<span class="flag-icon">🇲🇩 ➔ 🇷🇴</span> Молдова - Румунія',
+                'desc-md-ro': 'В’їзд до ЄС. Контроль суворіший.',
+                'list-md-ro-1': '<strong>Біометричний паспорт</strong> (для безвізу).',
+                'list-md-ro-2': '<strong>Фінанси:</strong> Підтвердження коштів (мін 50 євро/день).',
+                'list-md-ro-3': '<strong>Мед. страхування:</strong> Дуже рекомендується.',
+                'list-md-ro-4': '<strong>Ліміт:</strong> Макс 2 пачки цигарок, 1л алкоголю. М\'ясо/молоко заборонено.',
+                'warning-text': '⚠️ Увага: Підготуйте документи заздалегідь.'
+            }
+        };
+
+        // Функция, която презаписва или допълва старата changeLanguage
+        // Така че да работи само за тази страница без да чупим lang.js
+        function changeLanguage(lang) {
+            // 1. Ако имаш стара логика в lang.js за менюто, тя ще си работи.
+            // Тук ъпдейтваме само специфичните ID-та за тази страница:
+            
+            const texts = docTranslations[lang];
+            if (!texts) return;
+
+            // Обхождаме всички ключове и сменяме текста
+            for (let id in texts) {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.innerHTML = texts[id];
+                }
+            }
+            
+            // Запазваме избора (за да се помни между страниците)
+            localStorage.setItem('preferredLang', lang);
+
+            // Обновяваме селекта да показва правилния език
+            const selects = document.querySelectorAll('.lang-select');
+            selects.forEach(sel => sel.value = lang);
+        }
+
+        // При зареждане на страницата - виж какъв език е бил избран последно
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLang') || 'bg';
+            changeLanguage(savedLang);
+        });
+    </script>
+        <button id="scroll-to-top">↑</button>
+        <script src="scroll.js"></script>
+</body>
+</html>

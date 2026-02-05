@@ -1,27 +1,21 @@
-// ------------------------------------------------------------------
-// 1. ИМПОРТИ (Не пипай този блок, той зарежда Firebase от интернет)
-// ------------------------------------------------------------------
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-// ------------------------------------------------------------------
-// 2. ТВОИТЕ НАСТРОЙКИ (Тук сложи кода, който копира)
-// ------------------------------------------------------------------
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
- apiKey: "AIzaSyBcmGCml0fRyf9Ixcbqbp_PY7uCjbTtEdQ",
-    authDomain: "prevoznahoramoldovabulgaria.firebaseapp.com",
-    projectId: "prevoznahoramoldovabulgaria",
-    storageBucket: "prevoznahoramoldovabulgaria.firebasestorage.app",
-    messagingSenderId: "927446352482",
-    appId: "1:927446352482:web:ccde059f432cf06a24473b",
-    measurementId: "G-1SXLNYGGGF"
+  apiKey: "AIzaSyBGEPxa0rGPyByiY8Tp3GaiflGnApQocgU",
+  authDomain: "prevozmoldovabulgaria.firebaseapp.com",
+  projectId: "prevozmoldovabulgaria",
+  storageBucket: "prevozmoldovabulgaria.firebasestorage.app",
+  messagingSenderId: "970743272899",
+  appId: "1:970743272899:web:c27df38bd186bd7e7a1976",
+  measurementId: "G-2DDCLMRE0W"
 };
 
-// ------------------------------------------------------------------
-// 3. ИНИЦИАЛИЗАЦИЯ (Не пипай този блок)
-// ------------------------------------------------------------------
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// Експортваме auth, за да може auth.js да го ползва
-export { auth };
+const analytics = getAnalytics(app);

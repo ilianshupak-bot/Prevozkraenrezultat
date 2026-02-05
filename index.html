@@ -58,8 +58,9 @@
             <nav>
                 <ul>
                     <li><a href="index.html" class="active" id="nav-home">Начало</a></li>
-                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                    <li><a href="documents.html" id="nav-docs">Документи</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
                     <li>
@@ -138,32 +139,7 @@
     </footer>
 
     <button id="scroll-to-top">↑</button>
-
-    <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
-    <script>
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-        const scrollToTopBtn = document.getElementById('scroll-to-top');
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                header.classList.add('hidden');
-            } else {
-                header.classList.remove('hidden');
-            }
-            lastScrollTop = scrollTop;
-            if (scrollTop > 200) {
-                scrollToTopBtn.style.display = 'block';
-            } else {
-                scrollToTopBtn.style.display = 'none';
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+    <script src="scroll.js"></script>
 </body>
 </html>

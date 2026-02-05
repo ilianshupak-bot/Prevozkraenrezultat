@@ -17,15 +17,23 @@
 <body>
     <header>
         <div class="nav-container">
-            <a href="index.html"><img src="FIP.jpg" alt="EuroTrans Logo" class="logo-img"></a>
+            <a href="index.html"><img src="logo.png" alt="EuroTrans Logo" class="logo-img"></a>
             <nav>
                 <ul>
                     <li><a href="index.html" id="nav-home">Начало</a></li>
-                    <li><a href="routes.html" class="active" id="nav-routes">Маршрути</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="routes.html" class="active" id="nav-routes">Маршрути</a></li>
+                    <li><a href="documents.html" id="nav-docs">Документи</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
-                    <li><select class="lang-select" onchange="changeLanguage(this.value)"><option value="bg">🇧🇬</option><option value="en">🇬🇧</option><option value="ru">🇷🇺</option><option value="ua">🇺🇦</option></select></li>
+                    <li>
+                        <select class="lang-select" onchange="changeLanguage(this.value)">
+                            <option value="bg">🇧🇬</option>
+                            <option value="en">🇬🇧</option>
+                            <option value="ru">🇷🇺</option>
+                            <option value="ua">🇺🇦</option>
+                        </select>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -55,7 +63,6 @@
         </div>
     </main>
 
-    <script type="module" src="auth.js"></script>
     <script src="lang.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
@@ -172,34 +179,23 @@
             });
         }
 
+        // Проверка за URL параметър на зареждане
+        window.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const routeParam = urlParams.get('route');
+            
+            if (routeParam === 'sofia-moldova') {
+                setDirection('bg-md');
+            } else if (routeParam === 'moldova-sofia') {
+                setDirection('md-bg');
+            }
+        });
+
         updateMap();
     </script>
 
     <button id="scroll-to-top">↑</button>
 
-    <script>
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-        const scrollToTopBtn = document.getElementById('scroll-to-top');
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (scrollTop > lastScrollTop && scrollTop > 100) {
-                header.classList.add('hidden');
-            } else {
-                header.classList.remove('hidden');
-            }
-            lastScrollTop = scrollTop;
-            if (scrollTop > 200) {
-                scrollToTopBtn.style.display = 'block';
-            } else {
-                scrollToTopBtn.style.display = 'none';
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    </script>
+    <script src="scroll.js"></script>
 </body>
 </html>
