@@ -21,6 +21,13 @@
 }
 
 /* --- ФОН И СТРАНИЧНИ ДЕКОРАЦИИ --- */
+.img {
+    height: 32px;
+    width: 32px;
+    object-fit: contain;
+    transition: transform 0.3s;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
 body {
     background-color: var(--bg-body);
     color: var(--text-main);

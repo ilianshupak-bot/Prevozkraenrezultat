@@ -8,12 +8,12 @@
 <body>
     <header>
         <div class="nav-container">
-            <a href="index.html"><img src="logo.png" alt="EuroTrans Logo" class="logo-img"></a>
+            <a href="index.html"><img src="FIP.jpg" alt="EuroTrans Logo" class="logo-img"></a>
             <nav>
                 <ul>
                     <li><a href="index.html" id="nav-home">Начало</a></li>
-                    <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
                     <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                    <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
                     <li><a href="documents.html" id="nav-docs">Документи</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
                     <li><a href="contact.html" class="active" id="nav-contact">Контакти</a></li>
@@ -31,57 +31,57 @@
     </header>
 
     <main class="container">
-        <h1 class="page-title" id="contact-title">Свържете се с нас</h1>
+        <h1 class="page-title" id="page-title">Свържете се с нас</h1>
         
         <div class="grid" style="grid-template-columns: 1fr 1.5fr;">
             <div class="card">
-                <h3 id="contact-info-title">Информация</h3>
-                <p id="contact-phones">
-                    📞 <strong>BG:</strong> +359 888 123 456<br>
-                    📞 <strong>MD:</strong> +373 69 123 456
-                </p>
+                <h3 id="info-title">Информация</h3>
+                <p>📞 <strong>BG:</strong> +359 888 123 456<br>
+                   📞 <strong>MD:</strong> +373 69 123 456</p>
                 <br>
                 <p>📧 office@eurotrans.com</p>
-                <br>
-                <p id="contact-address">📍 Офис София: бул. Витоша 10</p>
             </div>
 
             <div class="content-box">
-                <h2 id="form-title">Резервация / Запитване</h2>
+                <h2 id="form-title">Резервация</h2>
+                
+                <div id="cooldown-msg" style="display:none; background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f87171;">
+                    ⏳ <strong id="wait-msg-strong">Моля изчакайте!</strong> <span id="wait-msg-text">Вече изпратихте заявка наскоро. Опитайте отново след</span> <span id="timer-display">--</span> <span id="wait-msg-min">минути.</span>
+                </div>
+
                 <form id="booking-form">
                     
-                    <div style="margin-bottom: 15px;">
-                        <label for="name" style="display:block; margin-bottom:5px;">Име и Фамилия</label>
-                        <input type="text" id="name" name="name" style="width: 100%;" required>
+                    <div style="position: absolute; left: -9999px; top: -9999px;">
+                        <label for="website_check">Website</label>
+                        <input type="text" id="website_check" name="website_check" tabindex="-1" autocomplete="off">
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="phone" style="display:block; margin-bottom:5px;">Телефон</label>
-                        <input type="text" id="phone" name="phone" style="width: 100%;" required>
+                        <label for="name" id="lbl-name">Име и Фамилия</label>
+                        <input type="text" id="name" style="width: 100%;" required>
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="travel-date" style="display:block; margin-bottom:5px;">Дата на пътуване</label>
-                        <select id="travel-date" name="travel-date" style="width: 100%;" onchange="updateRouteBasedOnDate()">
-                            </select>
+                        <label for="phone" id="lbl-phone">Телефон</label>
+                        <input type="text" id="phone" style="width: 100%;" required>
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="route" style="display:block; margin-bottom:5px;">Маршрут</label>
-                        <select id="route" name="route" style="width: 100%;">
-                            <option value="sofia-moldova">София ➔ Молдова</option>
-                            <option value="moldova-sofia">Молдова ➔ София</option>
+                        <label for="travel-date" id="lbl-date">Дата на пътуване</label>
+                        <select id="travel-date" style="width: 100%;" onchange="updateRouteBasedOnDate()"></select>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="route" id="lbl-route">Маршрут</label>
+                        <select id="route" style="width: 100%;">
+                            <option value="sofia-moldova" id="opt-sofia-moldova">София ➔ Молдова</option>
+                            <option value="moldova-sofia" id="opt-moldova-sofia">Молдова ➔ София</option>
                         </select>
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="pickup-address" style="display:block; margin-bottom:5px;">Адрес за вземане</label>
-                        <input type="text" id="pickup-address" name="pickup-address" style="width: 100%;" placeholder="Въведете адреса на вземане" required>
-                    </div>
-
-                    <div style="margin-bottom: 15px;">
-                        <label for="message" style="display:block; margin-bottom:5px;">Допълнителна информация</label>
-                        <textarea id="message" name="message" rows="4" style="width: 100%; padding: 10px; border-radius: 8px; border: 2px solid #e5e7eb; background:#f9fafb;"></textarea>
+                        <label for="message" id="lbl-message">Допълнителна информация</label>
+                        <textarea id="message" rows="4" style="width: 100%;"></textarea>
                     </div>
 
                     <button type="submit" class="btn" style="width: 100%;" id="btn-send">Изпрати</button>
@@ -89,10 +89,217 @@
             </div>
         </div>
     </main>
-    <script src="lang.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // --- ЛОГИКА ЗА ДАТИТЕ ---
+        // --- 1. ПРЕВОДИ (Translations) ---
+        const translations = {
+            'bg': {
+                'nav-home': 'Начало', 'nav-routes': 'Маршрути', 'nav-schedule': 'Разписание', 'nav-fleet': 'Автопарк', 'nav-contact': 'Контакти',
+                'page-title': 'Свържете се с нас',
+                'info-title': 'Информация',
+                'form-title': 'Резервация / Запитване',
+                'lbl-name': 'Име и Фамилия',
+                'lbl-phone': 'Телефон',
+                'lbl-date': 'Дата на пътуване',
+                'lbl-route': 'Маршрут',
+                'lbl-message': 'Допълнителна информация',
+                'btn-send': 'Изпрати',
+                'opt-sofia-moldova': 'София ➔ Молдова',
+                'opt-moldova-sofia': 'Молдова ➔ София',
+                'day-friday': 'Петък', 'day-sunday': 'Неделя',
+                'wait-msg-strong': 'Моля изчакайте!',
+                'wait-msg-text': 'Вече изпратихте заявка наскоро. Опитайте отново след',
+                'wait-msg-min': 'минути.',
+                'alert-success': '✅ Заявката е изпратена успешно!',
+                'alert-error': '❌ Грешка: ',
+                'btn-sending': 'Изпращане...',
+                'btn-blocked': '🚫 Изчакайте...'
+            },
+            'en': {
+                'nav-home': 'Home', 'nav-routes': 'Routes', 'nav-schedule': 'Schedule', 'nav-fleet': 'Fleet', 'nav-contact': 'Contact',
+                'page-title': 'Contact Us',
+                'info-title': 'Information',
+                'form-title': 'Booking / Inquiry',
+                'lbl-name': 'Full Name',
+                'lbl-phone': 'Phone Number',
+                'lbl-date': 'Travel Date',
+                'lbl-route': 'Route',
+                'lbl-message': 'Additional Information',
+                'btn-send': 'Send Request',
+                'opt-sofia-moldova': 'Sofia ➔ Moldova',
+                'opt-moldova-sofia': 'Moldova ➔ Sofia',
+                'day-friday': 'Friday', 'day-sunday': 'Sunday',
+                'wait-msg-strong': 'Please wait!',
+                'wait-msg-text': 'You sent a request recently. Try again in',
+                'wait-msg-min': 'minutes.',
+                'alert-success': '✅ Request sent successfully!',
+                'alert-error': '❌ Error: ',
+                'btn-sending': 'Sending...',
+                'btn-blocked': '🚫 Please wait...'
+            },
+            'ru': {
+                'nav-home': 'Главная', 'nav-routes': 'Маршруты', 'nav-schedule': 'Расписание', 'nav-fleet': 'Автопарк', 'nav-contact': 'Контакты',
+                'page-title': 'Свяжитесь с нами',
+                'info-title': 'Информация',
+                'form-title': 'Бронирование / Запрос',
+                'lbl-name': 'Имя и Фамилия',
+                'lbl-phone': 'Телефон',
+                'lbl-date': 'Дата поездки',
+                'lbl-route': 'Маршрут',
+                'lbl-message': 'Дополнительная информация',
+                'btn-send': 'Отправить',
+                'opt-sofia-moldova': 'София ➔ Молдова',
+                'opt-moldova-sofia': 'Молдова ➔ София',
+                'day-friday': 'Пятница', 'day-sunday': 'Воскресенье',
+                'wait-msg-strong': 'Подождите!',
+                'wait-msg-text': 'Вы недавно отправляли запрос. Попробуйте через',
+                'wait-msg-min': 'минут.',
+                'alert-success': '✅ Заявка успешно отправлена!',
+                'alert-error': '❌ Ошибка: ',
+                'btn-sending': 'Отправка...',
+                'btn-blocked': '🚫 Подождите...'
+            },
+            'ua': {
+                'nav-home': 'Головна', 'nav-routes': 'Маршрути', 'nav-schedule': 'Розклад', 'nav-fleet': 'Автопарк', 'nav-contact': 'Контакти',
+                'page-title': 'Зв\'яжіться з нами',
+                'info-title': 'Інформація',
+                'form-title': 'Бронювання / Запит',
+                'lbl-name': 'Ім\'я та Прізвище',
+                'lbl-phone': 'Телефон',
+                'lbl-date': 'Дата поїздки',
+                'lbl-route': 'Маршрут',
+                'lbl-message': 'Додаткова інформація',
+                'btn-send': 'Надіслати',
+                'opt-sofia-moldova': 'Софія ➔ Молдова',
+                'opt-moldova-sofia': 'Молдова ➔ Софія',
+                'day-friday': 'П\'ятниця', 'day-sunday': 'Неділя',
+                'wait-msg-strong': 'Зачекайте!',
+                'wait-msg-text': 'Ви нещодавно надсилали запит. Спробуйте через',
+                'wait-msg-min': 'хвилин.',
+                'alert-success': '✅ Заявку успішно надіслано!',
+                'alert-error': '❌ Помилка: ',
+                'btn-sending': 'Надсилання...',
+                'btn-blocked': '🚫 Зачекайте...'
+            }
+        };
+
+        let currentLang = 'bg'; // Език по подразбиране
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            
+            // Смяна на всички текстове по ID
+            for (let key in t) {
+                let el = document.getElementById(key);
+                if (el) el.innerText = t[key];
+            }
+
+            // Запазване в LocalStorage
+            localStorage.setItem('preferredLang', lang);
+
+            // Обновяване на селекторите
+            document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+
+            // Презареждане на датите, за да се преведат имената на дните
+            initDates();
+        }
+
+        // --- 2. FIREBASE КОНФИГУРАЦИЯ ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGEPxa0rGPyByiY8Tp3GaiflGnApQocgU",
+            authDomain: "prevozmoldovabulgaria.firebaseapp.com",
+            projectId: "prevozmoldovabulgaria",
+            storageBucket: "prevozmoldovabulgaria.firebasestorage.app",
+            messagingSenderId: "970743272899",
+            appId: "1:970743272899:web:c27df38bd186bd7e7a1976",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // --- 3. ЗАЩИТА И ЛОГИКА ---
+        const COOLDOWN_MINUTES = 30;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // Зареждане на езика
+            const savedLang = localStorage.getItem('preferredLang') || 'bg';
+            changeLanguage(savedLang);
+
+            checkCooldownStatus();
+        });
+
+        function checkCooldownStatus() {
+            const lastTime = localStorage.getItem('lastReservationTime');
+            if (lastTime) {
+                const now = new Date().getTime();
+                const diff = now - parseInt(lastTime);
+                const minutesPassed = diff / 60000;
+
+                if (minutesPassed < COOLDOWN_MINUTES) {
+                    const remaining = Math.ceil(COOLDOWN_MINUTES - minutesPassed);
+                    
+                    const btn = document.getElementById('btn-send');
+                    const t = translations[currentLang];
+                    
+                    btn.disabled = true;
+                    btn.innerText = t['btn-blocked'];
+                    btn.style.backgroundColor = "#9ca3af";
+                    
+                    document.getElementById('cooldown-msg').style.display = 'block';
+                    document.getElementById('timer-display').innerText = remaining;
+                    
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        const form = document.getElementById('booking-form');
+        
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (checkCooldownStatus()) return;
+
+            // Honeypot check
+            const honeypot = document.getElementById('website_check').value;
+            if (honeypot !== "") return;
+
+            const btn = document.getElementById('btn-send');
+            const originalText = btn.innerText;
+            const t = translations[currentLang];
+            
+            btn.innerText = t['btn-sending'];
+            btn.disabled = true;
+
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                date: document.getElementById('travel-date').value,
+                route: document.getElementById('route').value,
+                message: document.getElementById('message').value,
+                time: new Date().toLocaleString()
+            };
+
+            db.collection("reservations").add(formData)
+            .then(function() {
+                localStorage.setItem('lastReservationTime', new Date().getTime());
+                alert(t['alert-success']);
+                location.reload(); 
+            })
+            .catch(function(error) {
+                console.error("Error:", error);
+                alert(t['alert-error'] + error.message);
+                btn.innerText = originalText;
+                btn.disabled = false;
+            });
+        });
+
+        // --- 4. ДАТИ (С превод на дните) ---
         function getNextDayOfWeek(date, dayOfWeek) {
             const resultDate = new Date(date.getTime());
             resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
@@ -105,9 +312,16 @@
             return (d < 10 ? '0'+d : d) + '.' + (m < 10 ? '0'+m : m);
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
+        function initDates() {
             const dateSelect = document.getElementById('travel-date');
-            const routeSelect = document.getElementById('route');
+            const t = translations[currentLang]; // Вземаме думите за текущия език
+            
+            // Запазваме избраната стойност, ако има такава
+            const currentVal = dateSelect.value;
+            
+            // Изчистваме старите опции
+            dateSelect.innerHTML = '';
+
             const today = new Date();
 
             let nextFriday = getNextDayOfWeek(today, 5);
@@ -122,38 +336,21 @@
 
             let optFri = document.createElement('option');
             optFri.value = 'friday';
-            optFri.text = `Петък (${formatDate(nextFriday)})`;
+            // Използваме преведения ден
+            optFri.text = `${t['day-friday']} (${formatDate(nextFriday)})`;
             dateSelect.add(optFri);
 
             let optSun = document.createElement('option');
             optSun.value = 'sunday';
-            optSun.text = `Неделя (${formatDate(nextSunday)})`;
+            // Използваме преведения ден
+            optSun.text = `${t['day-sunday']} (${formatDate(nextSunday)})`;
             dateSelect.add(optSun);
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const dayParam = urlParams.get('day');
-
-            if (dayParam === 'friday') {
-                dateSelect.value = 'friday';
-            } else if (dayParam === 'sunday') {
-                dateSelect.value = 'sunday';
-            }
-
-            // Зареждане на маршрута от localStorage (идва от routes.html)
-            const selectedRoute = localStorage.getItem('selectedRoute');
-            if (selectedRoute) {
-                // Определяне на посоката от selectedRoute
-                if (selectedRoute.includes('София ➔ Молдова')) {
-                    routeSelect.value = 'sofia-moldova';
-                } else if (selectedRoute.includes('Молдова ➔ София')) {
-                    routeSelect.value = 'moldova-sofia';
-                }
-                // Можем да покажем и информацията (опционално)
-                console.log('Зареден маршрут:', selectedRoute);
-            }
+            
+            // Възстановяваме избора (ако е възможно)
+            if(currentVal) dateSelect.value = currentVal;
 
             updateRouteBasedOnDate();
-        });
+        }
 
         function updateRouteBasedOnDate() {
             const dateSelect = document.getElementById('travel-date');
@@ -182,79 +379,5 @@
             }
         }
     </script>
-
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
-    <script>
-        // 1. КОНФИГУРАЦИЯ (Твоите данни са попълнени)
-        const firebaseConfig = {
-            apiKey: "AIzaSyBGEPxa0rGPyByiY8Tp3GaiflGnApQocgU",
-            authDomain: "prevozmoldovabulgaria.firebaseapp.com",
-            projectId: "prevozmoldovabulgaria",
-            storageBucket: "prevozmoldovabulgaria.firebasestorage.app",
-            messagingSenderId: "970743272899",
-            appId: "1:970743272899:web:c27df38bd186bd7e7a1976",
-            measurementId: "G-2DDCLMRE0W"
-        };
-
-        // 2. Инициализация
-        try {
-            firebase.initializeApp(firebaseConfig);
-            const db = firebase.firestore();
-            console.log("Firebase е свързан успешно!");
-
-            // 3. Обработка на формата
-            const form = document.getElementById('booking-form');
-            
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); // Спира презареждането
-
-                const btn = document.getElementById('btn-send');
-                const originalText = btn.innerText;
-                
-                btn.innerText = "Изпращане...";
-                btn.disabled = true;
-
-                // Събиране на данните
-                const formData = {
-                    name: document.getElementById('name').value,
-                    phone: document.getElementById('phone').value,
-                    date: document.getElementById('travel-date').value,
-                    route: document.getElementById('route').value,
-                    pickupAddress: document.getElementById('pickup-address').value,
-                    selectedRoute: localStorage.getItem('selectedRoute') || 'Не е посочен',
-                    message: document.getElementById('message').value,
-                    time: new Date().toLocaleString()
-                };
-
-                // Изпращане към Firebase
-                db.collection("reservations").add(formData)
-                .then(function(docRef) {
-                    alert("✅ Резервацията е изпратена успешно!");
-                    form.reset(); 
-                    // Отчистване на selectedRoute от localStorage
-                    localStorage.removeItem('selectedRoute');
-                    // Нулиране на датата и маршрута след изчистване
-                    updateRouteBasedOnDate(); 
-                })
-                .catch(function(error) {
-                    console.error("Error:", error);
-                    alert("❌ Грешка: " + error.message);
-                })
-                .finally(function() {
-                    btn.innerText = originalText;
-                    btn.disabled = false;
-                });
-            });
-
-        } catch (error) {
-            console.error("Firebase Init Error:", error);
-            alert("Грешка при зареждане на системата: " + error.message);
-        }
-    </script>
-
-    <button id="scroll-to-top">↑</button>
-    <script src="scroll.js"></script>
 </body>
 </html>
