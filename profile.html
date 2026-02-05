@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <title>EuroTrans - Моят Профил</title>
+    <link rel="icon" type="img" href="malukfip.jpg">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- СТИЛОВЕ --- */
+        .auth-container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .auth-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .auth-tab {
+            padding: 10px 15px; /* Малко по-тесни заради 3-тия таб */
+            cursor: pointer;
+            font-weight: bold;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .auth-tab.active {
+            color: #2563eb;
+            border-bottom: 3px solid #2563eb;
+        }
+
+        .google-btn {
+            background: #fff;
+            color: #333;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .google-btn:hover { background: #f9fafb; }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        .profile-header {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #eee;
+            object-fit: cover;
+        }
+
+        .trip-card {
+            background: white;
+            border-left: 5px solid #2563eb;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        @media (max-width: 600px) {
+            .trip-card { flex-direction: column; text-align: left; align-items: flex-start; gap: 10px; }
+            .profile-header { flex-direction: column; text-align: center; }
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        /* Стил за съобщението за изпратен линк */
+        .success-msg {
+            background: #dcfce7;
+            color: #166534;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+            border: 1px solid #86efac;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html"><img src="FIP.jpg" alt="EuroTrans Logo" class="logo-img"></a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" id="nav-home">Начало</a></li>
+                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                    <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
+                    <li><a href="documents.html" id="nav-docs">Документи</a></li>
+                    <li><a href="contact.html" id="nav-contact">Контакти</a></li>
+                    <li><a href="profile.html" class="active" id="nav-profile">Профил</a></li>
+                    <li>
+                        <select class="lang-select" onchange="changeLanguage(this.value)">
+                            <option value="bg">🇧🇬</option>
+                            <option value="en">🇬🇧</option>
+                            <option value="ru">🇷🇺</option>
+                            <option value="ua">🇺🇦</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div id="auth-section" class="auth-container">
+            <h2 id="auth-title">Вход в системата</h2>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchTab('login')" id="tab-login">Парола</div>
+                <div class="auth-tab" onclick="switchTab('magic')" id="tab-magic">Без парола</div>
+                <div class="auth-tab" onclick="switchTab('register')" id="tab-register">Регистрация</div>
+            </div>
+
+            <button class="google-btn" onclick="googleLogin()">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+                <span id="btn-google">Вход с Google</span>
+            </button>
+
+            <p style="margin: 15px 0; color: #999;">- <span id="txt-or">или</span> -</p>
+
+            <form id="login-form">
+                <input type="email" id="login-email" class="form-input" placeholder="Email" required>
+                <input type="password" id="login-pass" class="form-input" placeholder="Парола" required>
+                <button type="submit" class="btn" style="width:100%" id="btn-login-submit">Влез</button>
+            </form>
+
+            <form id="magic-form" style="display:none;">
+                <p id="magic-desc" style="font-size: 0.9em; color: #555; margin-bottom: 10px;">
+                    Въведете имейл и ние ще ви изпратим линк за вход.
+                </p>
+                <input type="email" id="magic-email" class="form-input" placeholder="Email" required>
+                <button type="submit" class="btn" style="width:100%; background-color: #6366f1;" id="btn-magic-submit">🔗 Изпрати линк за вход</button>
+                <div id="magic-success" class="success-msg">
+                    ✅ Линкът е изпратен! Проверете си пощата.
+                </div>
+            </form>
+
+            <form id="register-form" style="display:none;">
+                <input type="email" id="reg-email" class="form-input" placeholder="Email" required>
+                <input type="password" id="reg-pass" class="form-input" placeholder="Парола (мин 6 символа)" required>
+                <button type="submit" class="btn" style="width:100%; background-color: #059669;" id="btn-reg-submit">Регистрирай се</button>
+            </form>
+
+            <p id="error-msg" style="color: red; margin-top: 10px; display: none;"></p>
+        </div>
+
+        <div id="profile-section" style="display: none;">
+            
+            <div class="profile-header">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="user-img" class="profile-pic" alt="User">
+                <div style="flex: 1;">
+                    <h2 id="user-name">...</h2>
+                    <p id="user-email" style="color: #666;">...</p>
+                    
+                    <div style="margin-top: 10px; background: #f3f4f6; padding: 10px; border-radius: 8px; display: inline-block;">
+                        <label style="font-size: 0.9em; color: #4b5563;" id="lbl-phone-link">Свържете телефон за история:</label>
+                        <div style="display: flex; gap: 5px; margin-top: 5px;">
+                            <input type="text" id="profile-phone" placeholder="+359..." style="padding: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                            <button onclick="savePhoneAndLoadTrips()" class="btn" style="padding: 5px 10px; font-size: 0.9em;" id="btn-save-phone">Търси</button>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="logout()" class="btn" style="background-color: #ef4444;" id="btn-logout">Изход</button>
+            </div>
+
+            <h2 id="history-title">История на пътуванията</h2>
+            <div id="trips-container"></div>
+        </div>
+
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // --- ПРЕВОДИ ---
+        const translations = {
+            'bg': {
+                'nav-profile': 'Профил', 'auth-title': 'Вход в системата',
+                'tab-login': 'Парола', 'tab-magic': 'Без парола', 'tab-register': 'Регистрация',
+                'btn-google': 'Вход с Google', 'txt-or': 'или',
+                'btn-login-submit': 'Влез', 'btn-magic-submit': '🔗 Изпрати линк за вход', 'btn-reg-submit': 'Регистрирай се',
+                'magic-desc': 'Въведете имейл и ние ще ви изпратим линк за вход.',
+                'magic-sent-msg': '✅ Линкът е изпратен! Проверете си пощата.',
+                'lbl-phone-link': 'Въведете телефон, с който сте правили резервации:',
+                'btn-save-phone': 'Търси', 'btn-logout': 'Изход',
+                'history-title': 'Моите пътувания',
+                'loading-trips': 'Няма намерени резервации.',
+                'prompt-email': 'Моля потвърдете вашия имейл за вход:'
+            },
+            'en': {
+                'nav-profile': 'Profile', 'auth-title': 'System Login',
+                'tab-login': 'Password', 'tab-magic': 'Passwordless', 'tab-register': 'Register',
+                'btn-google': 'Sign in with Google', 'txt-or': 'or',
+                'btn-login-submit': 'Login', 'btn-magic-submit': '🔗 Send Login Link', 'btn-reg-submit': 'Register',
+                'magic-desc': 'Enter your email and we will send you a login link.',
+                'magic-sent-msg': '✅ Link sent! Check your inbox.',
+                'lbl-phone-link': 'Enter phone number used for bookings:',
+                'btn-save-phone': 'Search', 'btn-logout': 'Logout',
+                'history-title': 'My Trips',
+                'loading-trips': 'No bookings found.',
+                'prompt-email': 'Please confirm your email for login:'
+            },
+            'ru': {
+                'nav-profile': 'Профиль', 'auth-title': 'Вход в систему',
+                'tab-login': 'Пароль', 'tab-magic': 'Без пароля', 'tab-register': 'Регистрация',
+                'btn-google': 'Войти через Google', 'txt-or': 'или',
+                'btn-login-submit': 'Войти', 'btn-magic-submit': '🔗 Отправить ссылку', 'btn-reg-submit': 'Зарегистрироваться',
+                'magic-desc': 'Введите email, и мы отправим ссылку для входа.',
+                'magic-sent-msg': '✅ Ссылка отправлена! Проверьте почту.',
+                'lbl-phone-link': 'Введите телефон для поиска бронирований:',
+                'btn-save-phone': 'Найти', 'btn-logout': 'Выход',
+                'history-title': 'Мои поездки',
+                'loading-trips': 'Бронирования не найдены.',
+                'prompt-email': 'Пожалуйста, подтвердите ваш email:'
+            },
+            'ua': {
+                'nav-profile': 'Профіль', 'auth-title': 'Вхід у систему',
+                'tab-login': 'Пароль', 'tab-magic': 'Без пароля', 'tab-register': 'Реєстрація',
+                'btn-google': 'Увійти через Google', 'txt-or': 'або',
+                'btn-login-submit': 'Увійти', 'btn-magic-submit': '🔗 Надіслати посилання', 'btn-reg-submit': 'Зареєструватися',
+                'magic-desc': 'Введіть email, і ми надішлемо посилання для входу.',
+                'magic-sent-msg': '✅ Посилання надіслано! Перевірте пошту.',
+                'lbl-phone-link': 'Введіть телефон для пошуку бронювань:',
+                'btn-save-phone': 'Знайти', 'btn-logout': 'Вихід',
+                'history-title': 'Мої поїздки',
+                'loading-trips': 'Бронювання не знайдено.',
+                'prompt-email': 'Будь ласка, підтвердіть ваш email:'
+            }
+        };
+
+        let currentLang = 'bg';
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            for (let key in t) {
+                let el = document.getElementById(key);
+                if (el) el.innerText = t[key];
+            }
+            // Специално за success съобщението
+            document.getElementById('magic-success').innerText = t['magic-sent-msg'];
+            localStorage.setItem('preferredLang', lang);
+            document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+        }
+
+        // --- FIREBASE CONFIG ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGEPxa0rGPyByiY8Tp3GaiflGnApQocgU",
+            authDomain: "prevozmoldovabulgaria.firebaseapp.com",
+            projectId: "prevozmoldovabulgaria",
+            storageBucket: "prevozmoldovabulgaria.firebasestorage.app",
+            messagingSenderId: "970743272899",
+            appId: "1:970743272899:web:c27df38bd186bd7e7a1976",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // --- UI ЛОГИКА ---
+        function switchTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('magic-form').style.display = 'none';
+            document.getElementById('error-msg').style.display = 'none';
+
+            if (tab === 'login') document.getElementById('login-form').style.display = 'block';
+            else if (tab === 'magic') document.getElementById('magic-form').style.display = 'block';
+            else document.getElementById('register-form').style.display = 'block';
+        }
+
+        // --- AUTH СЪБИТИЯ (ПРОВЕРКА НА ЛИНК) ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLang') || 'bg';
+            changeLanguage(savedLang);
+
+            // 1. Проверяваме дали потребителят току-що е кликнал на линка от мейла
+            if (auth.isSignInWithEmailLink(window.location.href)) {
+                
+                let email = window.localStorage.getItem('emailForSignIn');
+                
+                // Ако потребителят е отворил линка на друго устройство, трябва да го питаме за мейла
+                if (!email) {
+                    email = window.prompt(translations[currentLang]['prompt-email']);
+                }
+
+                if (email) {
+                    auth.signInWithEmailLink(email, window.location.href)
+                        .then((result) => {
+                            window.localStorage.removeItem('emailForSignIn');
+                            // Изчистваме грозния URL
+                            window.history.replaceState({}, document.title, "profile.html");
+                            // Потребителят е логнат, onAuthStateChanged ще се задейства долу
+                        })
+                        .catch((error) => {
+                            alert("Грешка при влизане: " + error.message);
+                        });
+                }
+            }
+        });
+
+        // Основна проверка дали е логнат
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById('auth-section').style.display = 'none';
+                document.getElementById('profile-section').style.display = 'block';
+                
+                document.getElementById('user-name').innerText = user.displayName || user.email.split('@')[0];
+                document.getElementById('user-email').innerText = user.email;
+                if(user.photoURL) document.getElementById('user-img').src = user.photoURL;
+
+                const savedPhone = localStorage.getItem('userPhone_' + user.uid);
+                if (savedPhone) {
+                    document.getElementById('profile-phone').value = savedPhone;
+                    loadTrips(savedPhone);
+                }
+            } else {
+                document.getElementById('auth-section').style.display = 'block';
+                document.getElementById('profile-section').style.display = 'none';
+            }
+        });
+
+        // --- LOGIN/REGISTER FUNCTIONS ---
+
+        // Google
+        function googleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider).catch(handleError);
+        }
+
+        // Email & Password Login
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            auth.signInWithEmailAndPassword(email, pass).catch(handleError);
+        });
+
+        // --- MAGIC LINK SENDING ---
+        document.getElementById('magic-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('magic-email').value;
+            const btn = document.getElementById('btn-magic-submit');
+            
+            const actionCodeSettings = {
+                // URL-ът, на който да се върне потребителя. Трябва да е точно този файл.
+                url: window.location.href, 
+                handleCodeInApp: true
+            };
+
+            btn.disabled = true;
+            btn.innerText = "Изпращане...";
+
+            auth.sendSignInLinkToEmail(email, actionCodeSettings)
+                .then(() => {
+                    // Запазваме имейла, за да не го питаме пак като се върне
+                    window.localStorage.setItem('emailForSignIn', email);
+                    document.getElementById('magic-success').style.display = 'block';
+                    btn.innerText = "Изпратено";
+                })
+                .catch((error) => {
+                    handleError(error);
+                    btn.disabled = false;
+                    btn.innerText = "Опитай пак";
+                });
+        });
+
+        // Register
+        document.getElementById('register-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('reg-email').value;
+            const pass = document.getElementById('reg-pass').value;
+            if(pass.length < 6) { alert("Паролата трябва да е мин. 6 символа"); return; }
+            auth.createUserWithEmailAndPassword(email, pass).catch(handleError);
+        });
+
+        // Logout
+        function logout() {
+            auth.signOut().then(() => location.reload());
+        }
+
+        function handleError(error) {
+            const errBox = document.getElementById('error-msg');
+            errBox.style.display = 'block';
+            errBox.innerText = "Грешка: " + error.message;
+        }
+
+        // --- HISTORY LOGIC ---
+        function savePhoneAndLoadTrips() {
+            const phone = document.getElementById('profile-phone').value.trim();
+            const user = auth.currentUser;
+            if(!phone) return;
+            if(user) localStorage.setItem('userPhone_' + user.uid, phone);
+            loadTrips(phone);
+        }
+
+        function loadTrips(phoneNumber) {
+            const container = document.getElementById('trips-container');
+            container.innerHTML = '<p>Searching...</p>';
+            db.collection("reservations").where("phone", "==", phoneNumber).orderBy("time", "desc").get()
+              .then((querySnapshot) => {
+                  container.innerHTML = '';
+                  if (querySnapshot.empty) {
+                      container.innerHTML = `<p style="color:#666;">${translations[currentLang]['loading-trips']}</p>`;
+                      return;
+                  }
+                  querySnapshot.forEach((doc) => {
+                      const data = doc.data();
+                      let routeName = data.route === 'sofia-moldova' ? 'София ➔ Молдова' : 'Молдова ➔ София';
+                      const card = document.createElement('div');
+                      card.className = 'trip-card';
+                      card.innerHTML = `
+                        <div>
+                            <h3 style="margin: 0 0 5px 0; color: #1f2937;"><i class="fas fa-bus"></i> ${routeName}</h3>
+                            <p style="margin:0; color:#666;">📅 ${data.date} <br> 🕒 <small>${data.time}</small></p>
+                        </div>
+                        <div><span class="status-badge">✅ OK</span></div>
+                      `;
+                      container.appendChild(card);
+                  });
+              })
+              .catch((error) => {
+                  console.log(error);
+                  container.innerHTML = `<p style="color:red">Грешка при зареждане. Проверете индекса.</p>`;
+              });
+        }
+    </script>
+</body>
+</html>
