@@ -2,9 +2,139 @@
 <html lang="bg">
 <head>
     <meta charset="UTF-8">
-    <title>EuroTrans - Контакти</title>
+    <title>EuroTrans - Резервация</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- МОДАЛЕН ПРОЗОРЕЦ (ANIMATION & LAYOUT) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none; /* Скрито */
+            justify-content: center; align-items: flex-end; /* Започва отдолу */
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px 20px 0 0; /* Заоблено само горе */
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+            
+            /* Плавна анимация отдолу */
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        /* --- MERCEDES V-CLASS ДИЗАЙН --- */
+        .v-class-body {
+            background: #e5e7eb; /* Интериор */
+            border: 4px solid #1f2937; /* Тъмен корпус */
+            border-radius: 40px 40px 15px 15px; /* Форма на ван */
+            padding: 60px 25px 30px 25px;
+            margin: 20px auto;
+            width: 200px; /* По-тесен и дълъг */
+            min-height: 400px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        /* Предно стъкло (V-Class style) */
+        .v-class-body::before {
+            content: ''; position: absolute; top: 15px; left: 20px; right: 20px; height: 35px;
+            background: linear-gradient(180deg, #374151 0%, #111827 100%);
+            border-radius: 15px 15px 5px 5px;
+            box-shadow: inset 0 2px 5px rgba(255,255,255,0.2);
+        }
+
+        /* Странични огледала */
+        .v-class-body::after {
+            content: ''; position: absolute; top: 30px; left: -12px; width: 228px; height: 10px;
+            background: transparent;
+            border-left: 8px solid #1f2937; border-right: 8px solid #1f2937;
+            border-radius: 5px;
+        }
+
+        .seat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px; /* Повече място за краката */
+        }
+        
+        .seat-row.middle-row {
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        /* Стил на седалката - Кожена визия */
+        .seat {
+            width: 45px; height: 50px; /* Продълговати седалки */
+            background: linear-gradient(180deg, #fff 0%, #f3f4f6 100%);
+            border: 1px solid #d1d5db;
+            border-radius: 8px 8px 12px 12px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            cursor: pointer;
+            font-weight: bold; color: #4b5563;
+            transition: 0.2s;
+            position: relative;
+            box-shadow: 0 4px 0 #e5e7eb;
+        }
+
+        /* Подглавник */
+        .seat::before {
+            content: ''; position: absolute; top: -8px; width: 30px; height: 6px;
+            background: #d1d5db; border-radius: 4px;
+        }
+        
+        .seat:active { transform: translateY(3px); box-shadow: 0 1px 0 #e5e7eb; }
+
+        .seat.selected {
+            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+            color: white; border-color: #1d4ed8;
+            box-shadow: 0 4px 0 #1e40af;
+        }
+        .seat.selected::before { background: #93c5fd; }
+
+        .seat.taken {
+            background: #fee2e2; color: #ef4444; border-color: #fca5a5;
+            cursor: not-allowed; opacity: 0.6; box-shadow: none;
+        }
+        .seat.taken::before { background: #fca5a5; }
+
+        .seat.driver {
+            background: #374151; color: #9ca3af; border-color: #1f2937;
+            cursor: default; box-shadow: none;
+        }
+        .seat.driver::before { background: #4b5563; }
+
+        .close-modal-btn {
+            background: #f3f4f6; border: none; padding: 10px 20px;
+            border-radius: 20px; cursor: pointer; font-weight: bold; color: #333;
+            margin-bottom: 10px;
+        }
+
+        /* Cooldown съобщение */
+        .cooldown-alert {
+            background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px;
+            margin-bottom: 15px; border: 1px solid #f87171; text-align: center;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -16,6 +146,7 @@
                     <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
                     <li><a href="contact.html" class="active" id="nav-contact">Контакти</a></li>
+                    <li><a href="profile.html" id="nav-profile">Профил</a></li>
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
                             <option value="bg">🇧🇬</option>
@@ -35,17 +166,18 @@
         <div class="grid" style="grid-template-columns: 1fr 1.5fr;">
             <div class="card">
                 <h3 id="info-title">Информация</h3>
-                <p>📞 <strong>BG:</strong> +359 87 8272034<br>
+                <p>📞 <strong>BG:</strong> +359 888 123 456<br>
                    📞 <strong>MD:</strong> +373 69 123 456</p>
                 <br>
-                <p>📧 polina_kuneva@gmail.com</p>
+                <p>📧 office@eurotrans.com</p>
             </div>
 
             <div class="content-box">
-                <h2 id="form-title">Резервация</h2>
+                <h2 id="form-title">Резервация на място</h2>
                 
-                <div id="cooldown-msg" style="display:none; background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f87171;">
-                    ⏳ <strong id="wait-msg-strong">Моля изчакайте!</strong> <span id="timer-display">--</span> мин.
+                <div id="cooldown-box" class="cooldown-alert">
+                    ⏳ <strong id="wait-msg-strong">Моля изчакайте!</strong> <br>
+                    Можете да направите нова резервация след <span id="timer-display">--</span> мин.
                 </div>
 
                 <form id="booking-form">
@@ -60,7 +192,7 @@
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="email" id="lbl-email">Email (за потвърждение)</label>
+                        <label for="email" id="lbl-email">Email (за билет)</label>
                         <input type="email" id="email" style="width: 100%;" required>
                     </div>
 
@@ -70,28 +202,67 @@
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="travel-date" id="lbl-date">Дата на пътуване</label>
-                        <select id="travel-date" style="width: 100%;" onchange="updateRouteBasedOnDate()"></select>
-                    </div>
-
-                    <div style="margin-bottom: 15px;">
                         <label for="route" id="lbl-route">Маршрут</label>
-                        <select id="route" style="width: 100%;">
-                            <option value="sofia-moldova" id="opt-sofia-moldova">София ➔ Молдова</option>
-                            <option value="moldova-sofia" id="opt-moldova-sofia">Молдова ➔ София</option>
+                        <select id="route" style="width: 100%;" onchange="initDates()">
+                            <option value="sofia-moldova" id="opt-sofia-moldova">София ➔ Молдова (Петък)</option>
+                            <option value="moldova-sofia" id="opt-moldova-sofia">Молдова ➔ София (Неделя)</option>
                         </select>
                     </div>
 
                     <div style="margin-bottom: 15px;">
-                        <label for="message" id="lbl-message">Допълнителна информация</label>
-                        <textarea id="message" rows="4" style="width: 100%;"></textarea>
+                        <label for="travel-date" id="lbl-date">Дата на пътуване</label>
+                        <select id="travel-date" style="width: 100%;"></select>
                     </div>
 
-                    <button type="submit" class="btn" style="width: 100%;" id="btn-send">Изпрати</button>
+                    <div style="margin-bottom: 15px;">
+                        <label for="message" id="lbl-message">Допълнителна информация</label>
+                        <textarea id="message" rows="2" style="width: 100%;"></textarea>
+                    </div>
+
+                    <button type="button" onclick="openSeatMap()" class="btn" style="width: 100%;" id="btn-choose-seat">🚍 Избери място</button>
                 </form>
             </div>
         </div>
     </main>
+
+    <div id="seat-modal" class="modal-overlay" onclick="if(event.target === this) closeSeatMap()">
+        <div class="modal-content">
+            <button class="close-modal-btn" onclick="closeSeatMap()">🔽 Скрий</button>
+            <h3 id="modal-title">Mercedes V-Class</h3>
+            
+            <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; font-size: 0.8em;">
+                <span>⚪ Свободно</span>
+                <span style="color:#ef4444">🔴 Заето</span>
+                <span style="color:#2563eb">🔵 Вашето</span>
+            </div>
+
+            <div class="v-class-body">
+                <div class="seat-row">
+                    <div class="seat driver" title="Driver"><i class="fas fa-steering-wheel"></i></div>
+                    <div class="seat" data-seat="1" onclick="selectSeat(1)">1</div>
+                </div>
+
+                <div style="height: 30px;"></div>
+
+                <div class="seat-row middle-row">
+                    <div class="seat" data-seat="2" onclick="selectSeat(2)">2</div>
+                    <div class="seat" data-seat="3" onclick="selectSeat(3)">3</div>
+                    <div class="seat" data-seat="4" onclick="selectSeat(4)">4</div>
+                </div>
+
+                <div style="height: 30px;"></div>
+
+                <div class="seat-row middle-row">
+                    <div class="seat" data-seat="5" onclick="selectSeat(5)">5</div>
+                    <div class="seat" data-seat="6" onclick="selectSeat(6)">6</div>
+                    <div class="seat" data-seat="7" onclick="selectSeat(7)">7</div>
+                </div>
+            </div>
+
+            <p id="selected-seat-msg" style="font-weight: bold; min-height: 20px;">...</p>
+            <button id="btn-confirm-booking" class="btn" style="width: 100%; background: #059669; margin-bottom: 20px;" onclick="finalizeBooking()" disabled>✅ Потвърди резервацията</button>
+        </div>
+    </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
@@ -99,10 +270,10 @@
 
     <script>
         const translations = {
-            'bg': { 'nav-home': 'Начало', 'nav-routes': 'Маршрути', 'nav-schedule': 'Разписание', 'nav-contact': 'Контакти', 'nav-profile': 'Профил', 'page-title': 'Свържете се с нас', 'info-title': 'Информация', 'form-title': 'Резервация / Запитване', 'lbl-name': 'Име и Фамилия', 'lbl-email': 'Email (за връзка)', 'lbl-phone': 'Телефон', 'lbl-date': 'Дата на пътуване', 'lbl-route': 'Маршрут', 'lbl-message': 'Допълнителна информация', 'btn-send': 'Изпрати', 'opt-sofia-moldova': 'София ➔ Молдова', 'opt-moldova-sofia': 'Молдова ➔ София', 'day-friday': 'Петък', 'day-sunday': 'Неделя', 'wait-msg-strong': 'Моля изчакайте!', 'alert-success': '✅ Заявката е изпратена успешно!', 'alert-error': '❌ Грешка: ', 'btn-sending': 'Изпращане...', 'btn-blocked': '🚫 Изчакайте...' },
-            'en': { 'nav-home': 'Home', 'nav-routes': 'Routes', 'nav-schedule': 'Schedule', 'nav-contact': 'Contact', 'nav-profile': 'Profile', 'page-title': 'Contact Us', 'info-title': 'Information', 'form-title': 'Booking / Inquiry', 'lbl-name': 'Full Name', 'lbl-email': 'Email (for contact)', 'lbl-phone': 'Phone Number', 'lbl-date': 'Travel Date', 'lbl-route': 'Route', 'lbl-message': 'Additional Information', 'btn-send': 'Send Request', 'opt-sofia-moldova': 'Sofia ➔ Moldova', 'opt-moldova-sofia': 'Moldova ➔ Sofia', 'day-friday': 'Friday', 'day-sunday': 'Sunday', 'wait-msg-strong': 'Please wait!', 'alert-success': '✅ Request sent!', 'alert-error': '❌ Error: ', 'btn-sending': 'Sending...', 'btn-blocked': '🚫 Wait...' },
-            'ru': { 'nav-home': 'Главная', 'nav-routes': 'Маршруты', 'nav-schedule': 'Расписание', 'nav-contact': 'Контакты', 'nav-profile': 'Профиль', 'page-title': 'Свяжитесь с нами', 'info-title': 'Информация', 'form-title': 'Бронирование', 'lbl-name': 'Имя и Фамилия', 'lbl-email': 'Email (для связи)', 'lbl-phone': 'Телефон', 'lbl-date': 'Дата поездки', 'lbl-route': 'Маршрут', 'lbl-message': 'Доп. информация', 'btn-send': 'Отправить', 'opt-sofia-moldova': 'София ➔ Молдова', 'opt-moldova-sofia': 'Молдова ➔ София', 'day-friday': 'Пятница', 'day-sunday': 'Воскресенье', 'wait-msg-strong': 'Подождите!', 'alert-success': '✅ Успешно!', 'alert-error': '❌ Ошибка: ', 'btn-sending': 'Отправка...', 'btn-blocked': '🚫 Ждите...' },
-            'ua': { 'nav-home': 'Головна', 'nav-routes': 'Маршрути', 'nav-schedule': 'Розклад', 'nav-contact': 'Контакти', 'nav-profile': 'Профіль', 'page-title': 'Зв\'яжіться з нами', 'info-title': 'Інформація', 'form-title': 'Бронювання', 'lbl-name': 'Ім\'я та Прізвище', 'lbl-email': 'Email (для зв\'язку)', 'lbl-phone': 'Телефон', 'lbl-date': 'Дата поїздки', 'lbl-route': 'Маршрут', 'lbl-message': 'Дод. інформація', 'btn-send': 'Надіслати', 'opt-sofia-moldova': 'Софія ➔ Молдова', 'opt-moldova-sofia': 'Молдова ➔ Софія', 'day-friday': 'П\'ятниця', 'day-sunday': 'Неділя', 'wait-msg-strong': 'Зачекайте!', 'alert-success': '✅ Успішно!', 'alert-error': '❌ Помилка: ', 'btn-sending': 'Надсилання...', 'btn-blocked': '🚫 Чекайте...' }
+            'bg': { 'page-title': 'Свържете се с нас', 'info-title': 'Информация', 'form-title': 'Резервация на място', 'lbl-name': 'Име и Фамилия', 'lbl-email': 'Email', 'lbl-phone': 'Телефон', 'lbl-route': 'Маршрут', 'lbl-date': 'Дата на пътуване', 'lbl-message': 'Доп. инфо', 'btn-choose-seat': '🚍 Избери място', 'opt-sofia-moldova': 'София ➔ Молдова (Петък)', 'opt-moldova-sofia': 'Молдова ➔ София (Неделя)', 'modal-title': 'Mercedes V-Class', 'btn-confirm': '✅ Потвърди резервацията', 'msg-seat-selected': 'Избрано място: ', 'msg-select-first': 'Моля изберете място.', 'alert-success': 'Резервацията е успешна!', 'alert-fill-data': 'Моля попълнете всички полета!', 'wait-msg-strong': 'Моля изчакайте!' },
+            'en': { 'page-title': 'Contact Us', 'info-title': 'Information', 'form-title': 'Seat Booking', 'lbl-name': 'Full Name', 'lbl-email': 'Email', 'lbl-phone': 'Phone', 'lbl-route': 'Route', 'lbl-date': 'Travel Date', 'lbl-message': 'Add. Info', 'btn-choose-seat': '🚍 Choose Seat', 'opt-sofia-moldova': 'Sofia ➔ Moldova (Friday)', 'opt-moldova-sofia': 'Moldova ➔ Sofia (Sunday)', 'modal-title': 'Mercedes V-Class', 'btn-confirm': '✅ Confirm Booking', 'msg-seat-selected': 'Selected Seat: ', 'msg-select-first': 'Please select a seat.', 'alert-success': 'Booking Successful!', 'alert-fill-data': 'Please fill all fields!', 'wait-msg-strong': 'Please wait!' },
+            'ru': { 'page-title': 'Свяжитесь с нами', 'info-title': 'Информация', 'form-title': 'Бронирование места', 'lbl-name': 'Имя и Фамилия', 'lbl-email': 'Email', 'lbl-phone': 'Телефон', 'lbl-route': 'Маршрут', 'lbl-date': 'Дата', 'lbl-message': 'Доп. инфо', 'btn-choose-seat': '🚍 Выбрать место', 'opt-sofia-moldova': 'София ➔ Молдова (Пятница)', 'opt-moldova-sofia': 'Молдова ➔ София (Воскресенье)', 'modal-title': 'Mercedes V-Class', 'btn-confirm': '✅ Подтвердить', 'msg-seat-selected': 'Выбрано место: ', 'msg-select-first': 'Выберите место.', 'alert-success': 'Успешно!', 'alert-fill-data': 'Заполните поля!', 'wait-msg-strong': 'Подождите!' },
+            'ua': { 'page-title': 'Зв\'язок', 'info-title': 'Інформація', 'form-title': 'Бронювання місця', 'lbl-name': 'Ім\'я та Прізвище', 'lbl-email': 'Email', 'lbl-phone': 'Телефон', 'lbl-route': 'Маршрут', 'lbl-date': 'Дата', 'lbl-message': 'Дод. інфо', 'btn-choose-seat': '🚍 Обрати місце', 'opt-sofia-moldova': 'Софія ➔ Молдова (П\'ятниця)', 'opt-moldova-sofia': 'Молдова ➔ Софія (Неділя)', 'modal-title': 'Mercedes V-Class', 'btn-confirm': '✅ Підтвердити', 'msg-seat-selected': 'Обране місце: ', 'msg-select-first': 'Оберіть місце.', 'alert-success': 'Успішно!', 'alert-fill-data': 'Заповніть поля!', 'wait-msg-strong': 'Зачекайте!' }
         };
 
         const firebaseConfig = {
@@ -117,22 +288,18 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         const db = firebase.firestore();
-
         let currentLang = 'bg';
+        let selectedSeatNum = null;
+        const COOLDOWN_MINUTES = 30;
 
         window.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('preferredLang') || 'bg';
             changeLanguage(savedLang);
-            checkCooldownStatus();
             initDates();
+            checkCooldownUI(); // Проверка при зареждане
 
-            // АВТОМАТИЧНО ПОПЪЛВАНЕ НА ИМЕЙЛ АКО Е ЛОГНАТ
             auth.onAuthStateChanged(user => {
-                if (user && user.email) {
-                    document.getElementById('email').value = user.email;
-                    // Може да направим полето само за четене, за да не сбърка
-                    // document.getElementById('email').readOnly = true; 
-                }
+                if (user && user.email) document.getElementById('email').value = user.email;
             });
         });
 
@@ -148,65 +315,7 @@
             initDates();
         }
 
-        // --- ЛОГИКА ЗА ИЗПРАЩАНЕ ---
-        const form = document.getElementById('booking-form');
-        const COOLDOWN_MINUTES = 30;
-
-        function checkCooldownStatus() {
-            const lastTime = localStorage.getItem('lastReservationTime');
-            if (lastTime) {
-                const diff = (new Date().getTime() - parseInt(lastTime)) / 60000;
-                if (diff < COOLDOWN_MINUTES) {
-                    document.getElementById('btn-send').disabled = true;
-                    document.getElementById('cooldown-msg').style.display = 'block';
-                    document.getElementById('timer-display').innerText = Math.ceil(COOLDOWN_MINUTES - diff);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            if (checkCooldownStatus()) return;
-            if (document.getElementById('website_check').value !== "") return;
-
-            const btn = document.getElementById('btn-send');
-            const originalText = btn.innerText;
-            btn.innerText = translations[currentLang]['btn-sending'];
-            btn.disabled = true;
-
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value.toLowerCase(), // ВАЖНО: Запазваме имейла
-                phone: document.getElementById('phone').value,
-                date: document.getElementById('travel-date').value,
-                route: document.getElementById('route').value,
-                message: document.getElementById('message').value,
-                time: new Date().toLocaleString(),
-                timestamp: firebase.firestore.FieldValue.serverTimestamp() // За подреждане
-            };
-
-            // Добавяме ID на потребителя, ако е логнат
-            const user = auth.currentUser;
-            if (user) {
-                formData.userId = user.uid;
-            }
-
-            db.collection("reservations").add(formData)
-            .then(function() {
-                localStorage.setItem('lastReservationTime', new Date().getTime());
-                alert(translations[currentLang]['alert-success']);
-                location.reload(); 
-            })
-            .catch(function(error) {
-                alert(translations[currentLang]['alert-error'] + error.message);
-                btn.innerText = originalText;
-                btn.disabled = false;
-            });
-        });
-
-        // --- ДАТИ ---
+        // --- ДАТИ (Петък / Неделя) ---
         function getNextDayOfWeek(date, dayOfWeek) {
             const resultDate = new Date(date.getTime());
             resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
@@ -216,43 +325,180 @@
             let d = date.getDate(), m = date.getMonth() + 1;
             return (d < 10 ? '0'+d : d) + '.' + (m < 10 ? '0'+m : m);
         }
+
         function initDates() {
             const dateSelect = document.getElementById('travel-date');
-            const t = translations[currentLang];
-            const currentVal = dateSelect.value;
+            const route = document.getElementById('route').value;
             dateSelect.innerHTML = '';
             
             const today = new Date();
-            let nextFriday = getNextDayOfWeek(today, 5);
-            if (today.getDay() === 5 && today.getHours() >= 16) nextFriday.setDate(nextFriday.getDate() + 7);
-            
-            let nextSunday = getNextDayOfWeek(today, 0);
-            if (today.getDay() === 0 && today.getHours() >= 8) nextSunday.setDate(nextSunday.getDate() + 7);
+            let targetDay = 5; // Петък
+            if (route === 'moldova-sofia') targetDay = 0; // Неделя
 
-            let optFri = new Option(`${t['day-friday']} (${formatDate(nextFriday)})`, 'friday');
-            let optSun = new Option(`${t['day-sunday']} (${formatDate(nextSunday)})`, 'sunday');
-            
-            dateSelect.add(optFri);
-            dateSelect.add(optSun);
-            if(currentVal) dateSelect.value = currentVal;
-            updateRouteBasedOnDate();
+            let nextDate = getNextDayOfWeek(today, targetDay);
+            if (today.getDay() === targetDay && today.getHours() >= 12) {
+                nextDate.setDate(nextDate.getDate() + 7);
+            }
+
+            for(let i=0; i<4; i++) {
+                let dateStr = formatDate(nextDate);
+                let opt = new Option(dateStr, dateStr);
+                dateSelect.add(opt);
+                nextDate.setDate(nextDate.getDate() + 7);
+            }
         }
 
-        function updateRouteBasedOnDate() {
-            const dateSelect = document.getElementById('travel-date');
-            const routeSelect = document.getElementById('route');
+        // --- COOLDOWN LOGIC ---
+        function getRemainingCooldown() {
+            const lastTime = localStorage.getItem('lastReservationTime');
+            if (!lastTime) return 0;
+            const diff = (new Date().getTime() - parseInt(lastTime)) / 60000;
+            if (diff < COOLDOWN_MINUTES) {
+                return Math.ceil(COOLDOWN_MINUTES - diff);
+            }
+            return 0;
+        }
+
+        function checkCooldownUI() {
+            const remaining = getRemainingCooldown();
+            const box = document.getElementById('cooldown-box');
+            const btn = document.getElementById('btn-choose-seat');
+            
+            if (remaining > 0) {
+                box.style.display = 'block';
+                document.getElementById('timer-display').innerText = remaining;
+                btn.disabled = true;
+                btn.innerText = `⏳ ${remaining} мин.`;
+                return true;
+            } else {
+                box.style.display = 'none';
+                btn.disabled = false;
+                btn.innerText = translations[currentLang]['btn-choose-seat'];
+                return false;
+            }
+        }
+
+        // --- SEAT MAP LOGIC ---
+
+        function openSeatMap() {
+            // 1. Проверка за cooldown
+            if (checkCooldownUI()) return;
+
+            // 2. Валидация на полета
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const email = document.getElementById('email').value;
+            if(!name || !phone || !email) {
+                alert(translations[currentLang]['alert-fill-data']);
+                return;
+            }
+
+            // 3. Отваряне и Анимация
+            const modal = document.getElementById('seat-modal');
+            modal.classList.add('active'); // Задейства CSS анимацията
+            
+            selectedSeatNum = null;
+            updateUISeat();
+            loadTakenSeats();
+        }
+
+        function closeSeatMap() {
+            const modal = document.getElementById('seat-modal');
+            modal.classList.remove('active'); // Скрива с анимация
+        }
+
+        function loadTakenSeats() {
+            const date = document.getElementById('travel-date').value;
+            const route = document.getElementById('route').value;
+
+            document.querySelectorAll('.seat').forEach(s => {
+                if(!s.classList.contains('driver')) {
+                    s.className = 'seat';
+                }
+            });
+
+            db.collection("reservations")
+              .where("date", "==", date)
+              .where("route", "==", route)
+              .get()
+              .then((querySnapshot) => {
+                  querySnapshot.forEach((doc) => {
+                      const data = doc.data();
+                      if (data.seatNumber) {
+                          const seatEl = document.querySelector(`.seat[data-seat="${data.seatNumber}"]`);
+                          if(seatEl) {
+                              seatEl.classList.add('taken');
+                              seatEl.title = translations[currentLang]['leg-taken'];
+                          }
+                      }
+                  });
+              });
+        }
+
+        function selectSeat(num) {
+            const seatEl = document.querySelector(`.seat[data-seat="${num}"]`);
+            if(seatEl.classList.contains('taken')) return;
+
+            document.querySelectorAll('.seat.selected').forEach(s => s.classList.remove('selected'));
+            seatEl.classList.add('selected');
+            selectedSeatNum = num;
+            updateUISeat();
+        }
+
+        function updateUISeat() {
+            const msgEl = document.getElementById('selected-seat-msg');
+            const btn = document.getElementById('btn-confirm-booking');
             const t = translations[currentLang];
 
-            // Ресет
-            routeSelect.innerHTML = ''; 
-            const optSofia = new Option(t['opt-sofia-moldova'], 'sofia-moldova');
-            const optMoldova = new Option(t['opt-moldova-sofia'], 'moldova-sofia');
-
-            if (dateSelect.value === 'friday') {
-                routeSelect.add(optSofia);
+            if(selectedSeatNum) {
+                msgEl.innerText = t['msg-seat-selected'] + selectedSeatNum;
+                btn.disabled = false;
             } else {
-                routeSelect.add(optMoldova);
+                msgEl.innerText = t['msg-select-first'];
+                btn.disabled = true;
             }
+        }
+
+        function finalizeBooking() {
+            if(!selectedSeatNum) return;
+            // Последна проверка за cooldown
+            if (checkCooldownUI()) {
+                closeSeatMap();
+                return;
+            }
+
+            const btn = document.getElementById('btn-confirm-booking');
+            btn.disabled = true;
+            btn.innerText = "...";
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value.toLowerCase(),
+                phone: document.getElementById('phone').value,
+                date: document.getElementById('travel-date').value,
+                route: document.getElementById('route').value,
+                message: document.getElementById('message').value,
+                seatNumber: selectedSeatNum,
+                time: new Date().toLocaleString(),
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            const user = auth.currentUser;
+            if (user) formData.userId = user.uid;
+
+            db.collection("reservations").add(formData)
+            .then(function() {
+                // Записване на времето за cooldown
+                localStorage.setItem('lastReservationTime', new Date().getTime());
+                
+                closeSeatMap();
+                alert(translations[currentLang]['alert-success']);
+                location.reload(); 
+            })
+            .catch(function(error) {
+                alert("Error: " + error.message);
+                btn.disabled = false;
+            });
         }
     </script>
 </body>
