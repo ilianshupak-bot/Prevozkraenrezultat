@@ -33,20 +33,30 @@
         header { background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 
         .nav-button-container {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
             margin-top: 10px;
+            padding: 15px;
             text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
         }
         .nav-button-container button {
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 16px;
-            background-color: #007bff;
-            color: white;
+            font-weight: 600;
+            background-color: white;
+            color: #22c55e;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .nav-button-container button:hover {
-            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            color: white;
+            background-color: #22c55e;
         }
     </style>
 </head>
@@ -58,12 +68,12 @@
             </a>
             <nav>
                 <ul>
-                    <li><a href="index.html" class="active" id="nav-home">Начало</a></li>
+                 <li><a href="index.html" id="nav-home">Начало</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
                     <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
                     <li><a href="documents.html" id="nav-docs">Документи</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
-                                     
+                                   
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
@@ -137,7 +147,7 @@
     </section>
 
     <footer>
-        <p id="footer-text">&copy; 2024 EuroTrans. Всички права запазени.</p>
+        <p id="footer-text">&copy; FIP  Всички права запазени.</p>
     </footer>
 
     <button id="scroll-to-top">↑</button>

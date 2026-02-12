@@ -13,6 +13,11 @@
         #map { height: 500px; width: 100%; border-radius: 10px; margin-top: 20px; z-index: 1; }
         .route-controls { background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .leaflet-routing-container { display: none !important; } /* Скриваме текстовите инструкции */
+        /* Inline city selects inside the route text */
+        #select-container { display:flex; justify-content:center; gap:10px; align-items:center; flex-wrap:wrap; }
+        #select-container span, #select-container .static-city { display:inline-block; vertical-align:middle; white-space:nowrap; }
+        /* Override global select width so selects don't take full line */
+        #select-container select { width: auto !important; min-width: 140px; display: inline-block; vertical-align: middle; white-space: nowrap; }
     </style>
 </head>
 <body>
@@ -23,7 +28,7 @@
                 <ul>
                     <li><a href="index.html" id="nav-home">Начало</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
-                    <li><a href="routes.html" class="active" id="nav-routes">Маршрути</a></li>
+                    <li><a href="routes.html"  id="nav-routes">Маршрути</a></li>
                     <li><a href="documents.html" id="nav-docs">Документи</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
                                    
@@ -64,6 +69,10 @@
             <button class="btn" id="btn-contact-route" onclick="saveRoute()">Запази пътуване</button>
         </div>
     </main>
+
+    <footer>
+        <p id="footer-text">&copy; FIP Всички права запазени.</p>
+    </footer>
 
     <script src="lang.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -155,7 +164,7 @@
                 btnBg.style.background = '#fff'; btnBg.style.color = '#333';
                 selectContainer.innerHTML = routeHtmlMdBg;
             }
-            changeLanguage(localStorage.getItem('selectedLang') || 'bg');
+            changeLanguage(localStorage.getItem('preferredLang') || 'bg');
             setTimeout(updateMap, 100);
         }
 

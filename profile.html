@@ -223,8 +223,8 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <script>
-        // --- ПРЕВОДИ ---
-        const translations = {
+        // --- PAGE-SPECIFIC TRANSLATIONS (do not redeclare global `translations`) ---
+        const profileTranslations = {
             'bg': {
                 'nav-profile': 'Профил', 'auth-title': 'Вход в системата',
                 'tab-login': 'Парола', 'tab-magic': 'Без парола', 'tab-register': 'Регистрация',
@@ -280,15 +280,25 @@
         };
 
         let currentLang = 'bg';
+        // Preserve global changeLanguage (from lang.js)
+        const _globalChangeLang = window.changeLanguage;
+
         function changeLanguage(lang) {
             currentLang = lang;
-            const t = translations[lang];
-            for (let key in t) {
-                let el = document.getElementById(key);
-                if (el) el.innerText = t[key];
+            // First apply global translations if available
+            if (typeof _globalChangeLang === 'function') _globalChangeLang(lang);
+
+            const t = profileTranslations[lang];
+            if (t) {
+                for (let key in t) {
+                    let el = document.getElementById(key);
+                    if (el) el.innerText = t[key];
+                }
+                // Специално за success съобщението
+                const ms = document.getElementById('magic-success');
+                if (ms && t['magic-sent-msg']) ms.innerText = t['magic-sent-msg'];
             }
-            // Специално за success съобщението
-            document.getElementById('magic-success').innerText = t['magic-sent-msg'];
+
             localStorage.setItem('preferredLang', lang);
             document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
         }
@@ -325,7 +335,11 @@
         // --- AUTH СЪБИТИЯ (ПРОВЕРКА НА ЛИНК) ---
         window.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('preferredLang') || 'bg';
+            // call global translator first if present
+            if (typeof _globalChangeLang === 'function') _globalChangeLang(savedLang);
             changeLanguage(savedLang);
+            // ensure header select triggers translations reliably
+            document.querySelectorAll('.lang-select').forEach(sel => sel.addEventListener('change', (e) => changeLanguage(e.target.value)));
 
             // 1. Проверяваме дали потребителят току-що е кликнал на линка от мейла
             if (auth.isSignInWithEmailLink(window.location.href)) {
@@ -334,7 +348,8 @@
                 
                 // Ако потребителят е отворил линка на друго устройство, трябва да го питаме за мейла
                 if (!email) {
-                    email = window.prompt(translations[currentLang]['prompt-email']);
+                    const p = (profileTranslations[currentLang] && profileTranslations[currentLang]['prompt-email']) || (window.translations && window.translations[currentLang] && window.translations[currentLang]['prompt-email']);
+                    email = window.prompt(p || 'Enter your email:');
                 }
 
                 if (email) {

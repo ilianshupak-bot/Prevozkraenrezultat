@@ -5,11 +5,9 @@
     <title>EuroTrans - Необходими документи</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <link rel="icon" type="img" href="malukfip.jpg">
+    <link rel="icon" type="image/jpg" href="malukfip.jpg">
     <style>
         /* --- СПЕЦИАЛНИ СТИЛОВЕ ЗА ТАЗИ СТРАНИЦА --- */
-        /* Можеш да преместиш това в style.css по-късно */
-        
         .docs-section {
             background: white;
             border-radius: 12px;
@@ -65,15 +63,6 @@
             margin-top: 4px;
             font-size: 1.1em;
         }
-
-        .warning-box {
-            background-color: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 15px;
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #856404;
-        }
     </style>
 </head>
 <body>
@@ -84,10 +73,9 @@
                 <ul>
                     <li><a href="index.html" id="nav-home">Начало</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
-                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
-                    <li><a href="documents.html" class="active" id="nav-docs">Документи</a></li>
+                    <li><a href="routes.html"  id="nav-routes">Маршрути</a></li>
+                    <li><a href="documents.html" id="nav-docs" class="active">Документи</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
-                                
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
@@ -180,13 +168,15 @@
 
     </main>
 
-    <script src="lang.js"></script> 
-    
+    <footer>
+        <p id="footer-text">&copy; FIP Всички права запазени.</p>
+    </footer>
+
     <script>
-        // Речник специално за тази страница
+        // Речник с преводите
         const docTranslations = {
             'bg': {
-                'nav-docs': 'Документи',
+                'nav-home': 'Начало', 'nav-schedule': 'Разписание', 'nav-routes': 'Маршрути', 'nav-docs': 'Документи', 'nav-fleet': 'Автопарк', 'nav-contact': 'Контакти',
                 'page-title': 'Необходими документи за пътуване',
                 
                 'title-bg-ro': '<span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> България - Румъния',
@@ -204,13 +194,13 @@
                 'title-md-ro': '<span class="flag-icon">🇲🇩 ➔ 🇷🇴</span> Молдова - Румъния',
                 'desc-md-ro': 'Влизане в ЕС. Граничният контрол е по-строг.',
                 'list-md-ro-1': '<strong>Биометричен паспорт</strong> (за безвизово пътуване).',
-                'list-md-ro-2': '<strong>Финанси:</strong> Доказателство за средства (мин. 50 евро/ден).',
+                'list-md-ro-2': '<strong>Финанси:</strong> Доказателство за средства (мин 50 евро/ден).',
                 'list-md-ro-3': '<strong>Медицинска застраховка:</strong> Силно препоръчителна.',
                 'list-md-ro-4': '<strong>Лимит:</strong> Макс 2 кутии цигари, 1л алкохол. Без месо/мляко.',
-                'warning-text': '⚠️ Внимание: Подгответе документите си предварително, за да избегнете забавяне.'
+                'footer-text': '&copy; FIP Всички права запазени.'
             },
             'en': {
-                'nav-docs': 'Documents',
+                'nav-home': 'Home', 'nav-schedule': 'Schedule', 'nav-routes': 'Routes', 'nav-docs': 'Documents', 'nav-fleet': 'Fleet', 'nav-contact': 'Contact',
                 'page-title': 'Required Travel Documents',
 
                 'title-bg-ro': '<span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> Bulgaria - Romania',
@@ -231,10 +221,10 @@
                 'list-md-ro-2': '<strong>Funds:</strong> Proof of funds may be requested (min 50 EUR/day).',
                 'list-md-ro-3': '<strong>Medical Insurance:</strong> Highly recommended.',
                 'list-md-ro-4': '<strong>Limits:</strong> Max 2 packs cigarettes, 1L alcohol. No meat/dairy.',
-                'warning-text': '⚠️ Warning: Have your documents ready to avoid delays.'
+                'footer-text': '&copy; FIP All rights reserved.'
             },
             'ru': {
-                'nav-docs': 'Документы',
+                'nav-home': 'Главная', 'nav-schedule': 'Расписание', 'nav-routes': 'Маршруты', 'nav-docs': 'Документы', 'nav-fleet': 'Автопарк', 'nav-contact': 'Контакты',
                 'page-title': 'Необходимые документы',
 
                 'title-bg-ro': '<span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> Болгария - Румыния',
@@ -255,10 +245,10 @@
                 'list-md-ro-2': '<strong>Финансы:</strong> Подтверждение средств (мин 50 евро/день).',
                 'list-md-ro-3': '<strong>Мед. страховка:</strong> Настоятельно рекомендуется.',
                 'list-md-ro-4': '<strong>Лимит:</strong> Макс 2 пачки сигарет, 1л алкоголя. Мясо/молоко запрещено.',
-                'warning-text': '⚠️ Внимание: Подготовьте документы заранее, чтобы избежать задержек.'
+                'footer-text': '&copy; FIP Все права защищены.'
             },
             'ua': {
-                'nav-docs': 'Документи',
+                'nav-home': 'Головна', 'nav-schedule': 'Розклад', 'nav-routes': 'Маршрути', 'nav-docs': 'Документи', 'nav-fleet': 'Автопарк', 'nav-contact': 'Контакти',
                 'page-title': 'Необхідні документи',
 
                 'title-bg-ro': '<span class="flag-icon">🇧🇬 ➔ 🇷🇴</span> Болгарія - Румунія',
@@ -279,42 +269,40 @@
                 'list-md-ro-2': '<strong>Фінанси:</strong> Підтвердження коштів (мін 50 євро/день).',
                 'list-md-ro-3': '<strong>Мед. страхування:</strong> Дуже рекомендується.',
                 'list-md-ro-4': '<strong>Ліміт:</strong> Макс 2 пачки цигарок, 1л алкоголю. М\'ясо/молоко заборонено.',
-                'warning-text': '⚠️ Увага: Підготуйте документи заздалегідь.'
+                'footer-text': '&copy; FIP Всі права захищені.'
             }
         };
 
-        // Функция, която презаписва или допълва старата changeLanguage
-        // Така че да работи само за тази страница без да чупим lang.js
+        // --- ГЛАВНА ФУНКЦИЯ ЗА СМЯНА НА ЕЗИКА ---
         function changeLanguage(lang) {
-            // 1. Ако имаш стара логика в lang.js за менюто, тя ще си работи.
-            // Тук ъпдейтваме само специфичните ID-та за тази страница:
-            
+            // 1. Запазваме избора в браузъра
+            localStorage.setItem('preferredLang', lang);
+
+            // 2. Обновяваме падащото меню, за да показва правилния флаг
+            document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+
+            // 3. Взимаме текстовете за избрания език
             const texts = docTranslations[lang];
             if (!texts) return;
 
-            // Обхождаме всички ключове и сменяме текста
+            // 4. Обхождаме всички елементи по ID и сменяме текста
             for (let id in texts) {
                 const element = document.getElementById(id);
                 if (element) {
                     element.innerHTML = texts[id];
                 }
             }
-            
-            // Запазваме избора (за да се помни между страниците)
-            localStorage.setItem('preferredLang', lang);
-
-            // Обновяваме селекта да показва правилния език
-            const selects = document.querySelectorAll('.lang-select');
-            selects.forEach(sel => sel.value = lang);
         }
 
-        // При зареждане на страницата - виж какъв език е бил избран последно
+        // --- ПРИ ЗАРЕЖДАНЕ НА СТРАНИЦАТА ---
         window.addEventListener('DOMContentLoaded', () => {
+            // Проверяваме дали има запазен език, ако не - ползваме БГ
             const savedLang = localStorage.getItem('preferredLang') || 'bg';
             changeLanguage(savedLang);
         });
     </script>
-        <button id="scroll-to-top">↑</button>
-        <script src="scroll.js"></script>
+
+    <button id="scroll-to-top">↑</button>
+    <script src="scroll.js"></script>
 </body>
 </html>

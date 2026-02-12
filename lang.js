@@ -6,6 +6,7 @@ const translations = {
         "nav-schedule": "Разписание",
         "nav-fleet": "Автопарк",
         "nav-contact": "Контакти",
+        "nav-docs": "Документи",
         
         // --- НАЧАЛО (INDEX.HTML) ---
         "hero-title": "Пътувайте комфортно и сигурно",
@@ -68,16 +69,37 @@ const translations = {
         "fleet-tech-title": "Технически характеристики и Поддръжка",
         "fleet-tech-desc": "Автомобилът Mercedes-Benz B-Class е избран неслучайно за нашите международни курсове. Той съчетава компактността на градска кола с вътрешния обем на лимузина. Окачването е специално настроено да поглъща неравностите на пътя, което прави преминаването през различните пътни настилки в България, Румъния и Молдова почти неусетно за пътниците. Шумоизолацията на купето е на изключително високо ниво.<br><br>По отношение на сигурността, автомобилът е оборудван с пълен пакет системи за активна и пасивна безопасност, включително ABS, ESP и множество въздушни възглавници. Преди всеки курс колата преминава през задължителна проверка на гуми, спирачна система, светлини и течности. Хигиената е наш приоритет – след всяко пътуване салонът се почиства основно и дезинфекцира.",
 
+        // --- ДОКУМЕНТИ (DOCUMENTS.HTML) ---
+        "page-title": "Свържете се с нас",
+        "title-bg-ro": "🇧🇬 ➔ 🇷🇴 България - Румъния",
+        
         // --- КОНТАКТИ (CONTACT.HTML) ---
         "contact-title": "Свържете се с нас",
-        "office-title": "Офис",
-        "work-hours": "Работно време",
-        "form-title": "Изпратете запитване",
-        "lbl-route": "Избран маршрут:",
-        "lbl-name": "Име:",
-        "lbl-phone": "Телефон:",
-        "lbl-msg": "Съобщение:",
-        "btn-send": "Изпрати",
+        "page-title": "Свържете се с нас",
+        "info-title": "Информация",
+        "form-title": "Резервация на място",
+        "lbl-name": "Име и Фамилия",
+        "lbl-email": "Email (за билет)",
+        "lbl-phone": "Телефон",
+        "lbl-route": "Маршрут",
+        "lbl-date": "Дата на пътуване",
+        "lbl-message": "Допълнителна информация",
+        "btn-choose-seat": "🚍 Избери място",
+        "opt-sofia-moldova": "София ➔ Молдова (Петък)",
+        "opt-moldova-sofia": "Молдова ➔ София (Неделя)",
+        "modal-title": "Mercedes V-Class",
+        "btn-confirm": "✅ Потвърди резервацията",
+        "msg-seat-selected": "Избрано място: ",
+        "msg-select-first": "Моля изберете място.",
+        "alert-success": "Резервацията е успешна!",
+        "alert-fill-data": "Моля попълнете всички полета!",
+        "wait-msg-strong": "Моля изчакайте!",
+        "leg-taken": "Заето",
+        "legend-free": "⚪ Свободно",
+        "legend-taken": "🔴 Заето",
+        "legend-driver": "🔵 Шофьор",
+        "btn-close-modal": "🔽 Скрий",
+        "btn-confirm-booking": "✅ Потвърди резервацията",
         
         // FOOTER
         "footer-text": "&copy; 2024 EuroTrans. Всички права запазени."
@@ -89,6 +111,7 @@ const translations = {
         "nav-schedule": "Schedule",
         "nav-fleet": "Fleet",
         "nav-contact": "Contact",
+        "nav-docs": "Documents",
 
         "hero-title": "Travel with Comfort and Safety",
         "hero-subtitle": "Your reliable partner for transport between Bulgaria and Moldova.",
@@ -144,14 +167,31 @@ const translations = {
         "fleet-tech-desc": "The Mercedes-Benz B-Class was chosen for our international routes for a reason. It combines the compactness of a city car with the interior volume of a limousine. The suspension is specially tuned to absorb road irregularities, making the passage through various road surfaces in Bulgaria, Romania, and Moldova almost imperceptible to passengers. Cabin sound insulation is at an extremely high level.<br><br>Regarding safety, the car is equipped with a full package of active and passive safety systems, including ABS, ESP, and multiple airbags. Before every trip, the car undergoes a mandatory check of tires, braking system, lights, and fluids. Hygiene is our priority – after every trip, the salon is thoroughly cleaned and disinfected.",
 
         "contact-title": "Contact Us",
-        "office-title": "Office",
-        "work-hours": "Working Hours",
-        "form-title": "Send an Inquiry",
-        "lbl-route": "Selected Route:",
-        "lbl-name": "Name:",
-        "lbl-phone": "Phone:",
-        "lbl-msg": "Message:",
-        "btn-send": "Send",
+        "page-title": "Contact Us",
+        "info-title": "Information",
+        "form-title": "Book a Seat",
+        "lbl-name": "Full Name",
+        "lbl-email": "Email (for ticket)",
+        "lbl-phone": "Phone",
+        "lbl-route": "Route",
+        "lbl-date": "Travel Date",
+        "lbl-message": "Additional Information",
+        "btn-choose-seat": "🚍 Choose Seat",
+        "opt-sofia-moldova": "Sofia ➔ Moldova (Friday)",
+        "opt-moldova-sofia": "Moldova ➔ Sofia (Sunday)",
+        "modal-title": "Mercedes V-Class",
+        "btn-confirm": "✅ Confirm Booking",
+        "msg-seat-selected": "Selected Seat: ",
+        "msg-select-first": "Please select a seat.",
+        "alert-success": "Booking Successful!",
+        "alert-fill-data": "Please fill all fields!",
+        "wait-msg-strong": "Please wait!",
+        "leg-taken": "Taken",
+        "legend-free": "⚪ Free",
+        "legend-taken": "🔴 Taken",
+        "legend-driver": "🔵 Driver",
+        "btn-close-modal": "🔽 Close",
+        "btn-confirm-booking": "✅ Confirm Booking",
         "footer-text": "&copy; 2024 EuroTrans. All rights reserved."
     },
 
@@ -161,6 +201,7 @@ const translations = {
         "nav-schedule": "Расписание",
         "nav-fleet": "Автопарк",
         "nav-contact": "Контакты",
+        "nav-docs": "Документы",
 
         "hero-title": "Путешествуйте с комфортом",
         "hero-subtitle": "Ваш надежный партнер для поездок между Болгарией и Молдовой.",
@@ -221,9 +262,28 @@ const translations = {
         "form-title": "Отправить запрос",
         "lbl-route": "Выбранный маршрут:",
         "lbl-name": "Имя:",
+        "lbl-email": "Email",
         "lbl-phone": "Телефон:",
+        "lbl-date": "Дата",
+        "lbl-message": "Доп. инфо",
         "lbl-msg": "Сообщение:",
         "btn-send": "Отправить",
+        "btn-choose-seat": "🚍 Выбрать место",
+        "opt-sofia-moldova": "София ➔ Молдова (Пятница)",
+        "opt-moldova-sofia": "Молдова ➔ София (Воскресенье)",
+        "modal-title": "Mercedes V-Class",
+        "btn-confirm": "✅ Подтвердить",
+        "msg-seat-selected": "Выбрано место: ",
+        "msg-select-first": "Выберите место.",
+        "alert-success": "Успешно!",
+        "alert-fill-data": "Заполните поля!",
+        "wait-msg-strong": "Подождите!",
+        "leg-taken": "Занято",
+            "legend-free": "⚪ Свободно",
+            "legend-taken": "🔴 Занято",
+            "legend-driver": "🔵 Водитель",
+            "btn-close-modal": "🔽 Скрыть",
+            "btn-confirm-booking": "✅ Подтвердить",
         "footer-text": "&copy; 2024 EuroTrans. Все права защищены."
     },
 
@@ -233,6 +293,7 @@ const translations = {
         "nav-schedule": "Розклад",
         "nav-fleet": "Автопарк",
         "nav-contact": "Контакти",
+        "nav-docs": "Документи",
 
         "hero-title": "Подорожуйте з комфортом",
         "hero-subtitle": "Ваш надійний партнер для поїздок між Болгарією та Молдовою.",
@@ -288,20 +349,39 @@ const translations = {
         "fleet-tech-desc": "Автомобіль Mercedes-Benz B-Class поєднує компактність міського авто з внутрішнім об'ємом лімузина. Підвіска спеціально налаштована для поглинання нерівностей дороги, що робить проїзд дорогами Болгарії, Румунії та Молдови майже непомітним для пасажирів. Шумоізоляція салону знаходиться на високому рівні.<br><br>Щодо безпеки, автомобіль оснащений повним пакетом систем активної та пасивної безпеки, включаючи ABS, ESP та подушки безпеки. Перед кожним рейсом автомобіль проходить обов'язкову перевірку шин, гальмівної системи та рідин. Гігієна — наш пріоритет: після кожної поїздки салон дезінфікується.",
 
         "contact-title": "Контакти",
-        "office-title": "Офіс",
-        "work-hours": "Робочий час",
-        "form-title": "Надіслати запит",
-        "lbl-route": "Обраний маршрут:",
-        "lbl-name": "Ім'я:",
-        "lbl-phone": "Телефон:",
+        "page-title": "Контакти",
+        "info-title": "Інформація",
+        "form-title": "Бронювання місця",
+        "lbl-name": "Ім'я та Прізвище",
+        "lbl-email": "Email",
+        "lbl-phone": "Телефон",
+        "lbl-route": "Маршрут",
+        "lbl-date": "Дата",
+        "lbl-message": "Дод. інфо",
         "lbl-msg": "Повідомлення:",
         "btn-send": "Надіслати",
+        "btn-choose-seat": "🚍 Обрати місце",
+        "opt-sofia-moldova": "Софія ➔ Молдова (П'ятниця)",
+        "opt-moldova-sofia": "Молдова ➔ Софія (Неділя)",
+        "modal-title": "Mercedes V-Class",
+        "btn-confirm": "✅ Підтвердити",
+        "msg-seat-selected": "Обране місце: ",
+        "msg-select-first": "Оберіть місце.",
+        "alert-success": "Успішно!",
+        "alert-fill-data": "Заповніть поля!",
+        "wait-msg-strong": "Зачекайте!",
+        "leg-taken": "Занято",
+            "legend-free": "⚪ Вільно",
+            "legend-taken": "🔴 Занято",
+            "legend-driver": "🔵 Водій",
+            "btn-close-modal": "🔽 Сховати",
+            "btn-confirm-booking": "✅ Підтвердити",
         "footer-text": "&copy; 2024 EuroTrans. Всі права захищені."
     }
 };
 
 function changeLanguage(lang) {
-    localStorage.setItem('selectedLang', lang);
+    localStorage.setItem('preferredLang', lang);
     const selectedData = translations[lang];
 
     for (let key in selectedData) {
@@ -322,7 +402,7 @@ function changeLanguage(lang) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const savedLang = localStorage.getItem('selectedLang') || 'bg';
+    const savedLang = localStorage.getItem('preferredLang') || 'bg';
     const select = document.querySelector('.lang-select');
     if(select) select.value = savedLang;
     changeLanguage(savedLang);

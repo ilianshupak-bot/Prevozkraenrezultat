@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>EuroTrans - Резервация</title>
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/airbnb.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/bg.js"></script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -139,14 +144,16 @@
 <body>
     <header>
         <div class="nav-container">
-            <a href="index.html"><img src="logo.png" alt="EuroTrans Logo" class="logo-img"></a>
+            <a href="index.html"><img src="FIP.jpg" alt="EuroTrans Logo" class="logo-img"></a>
             <nav>
                 <ul>
-                    <li><a href="index.html" id="nav-home">Начало</a></li>
-                    <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
+                   <li><a href="index.html" id="nav-home">Начало</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
-                    <li><a href="contact.html" class="active" id="nav-contact">Контакти</a></li>
-                    <li><a href="profile.html" id="nav-profile">Профил</a></li>
+                    <li><a href="routes.html"  id="nav-routes">Маршрути</a></li>
+                    <li><a href="documents.html" id="nav-docs">Документи</a></li>
+                    <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
+                                       
+                    <li><a href="contact.html" id="nav-contact">Контакти</a></li>
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
                             <option value="bg">🇧🇬</option>
@@ -211,7 +218,9 @@
 
                     <div style="margin-bottom: 15px;">
                         <label for="travel-date" id="lbl-date">Дата на пътуване</label>
-                        <select id="travel-date" style="width: 100%;"></select>
+                        <div class="date-input-wrapper" style="position: relative;">
+                            <input type="text" id="travel-date" placeholder="📅 Изберете дата..." style="width: 100%; background: white; cursor: pointer;" readonly>
+                        </div>
                     </div>
 
                     <div style="margin-bottom: 15px;">
@@ -227,35 +236,35 @@
 
     <div id="seat-modal" class="modal-overlay" onclick="if(event.target === this) closeSeatMap()">
         <div class="modal-content">
-            <button class="close-modal-btn" onclick="closeSeatMap()">🔽 Скрий</button>
+                <button id="btn-close-modal" class="close-modal-btn" onclick="closeSeatMap()">🔽 Скрий</button>
             <h3 id="modal-title">Mercedes V-Class</h3>
             
             <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 10px; font-size: 0.8em;">
-                <span>⚪ Свободно</span>
-                <span style="color:#ef4444">🔴 Заето</span>
-                <span style="color:#2563eb">🔵 Вашето</span>
+                    <span id="legend-free">⚪ Свободно</span>
+                    <span id="legend-taken" style="color:#ef4444">🔴Заето</span>
+                    <span id="legend-driver" style="color:#2563eb">🔵Шофьор</span>
             </div>
 
             <div class="v-class-body">
                 <div class="seat-row">
                     <div class="seat driver" title="Driver"><i class="fas fa-steering-wheel"></i></div>
-                    <div class="seat" data-seat="1" onclick="selectSeat(1)">1</div>
+                    <div class="seat" data-seat="1" onclick="selectSeat(1)"></div>
                 </div>
 
                 <div style="height: 30px;"></div>
 
                 <div class="seat-row middle-row">
-                    <div class="seat" data-seat="2" onclick="selectSeat(2)">2</div>
-                    <div class="seat" data-seat="3" onclick="selectSeat(3)">3</div>
-                    <div class="seat" data-seat="4" onclick="selectSeat(4)">4</div>
+                    <div class="seat" data-seat="2" onclick="selectSeat(2)"></div>
+                    <div class="seat" data-seat="3" onclick="selectSeat(3)"></div>
+                    <div class="seat" data-seat="4" onclick="selectSeat(4)"></div>
                 </div>
 
                 <div style="height: 30px;"></div>
 
                 <div class="seat-row middle-row">
-                    <div class="seat" data-seat="5" onclick="selectSeat(5)">5</div>
-                    <div class="seat" data-seat="6" onclick="selectSeat(6)">6</div>
-                    <div class="seat" data-seat="7" onclick="selectSeat(7)">7</div>
+                    <div class="seat" data-seat="5" onclick="selectSeat(5)"></div>
+                    <div class="seat" data-seat="6" onclick="selectSeat(6)"></div>
+                    <div class="seat" data-seat="7" onclick="selectSeat(7)"></div>
                 </div>
             </div>
 
@@ -264,10 +273,15 @@
         </div>
     </div>
 
+    <footer>
+        <p id="footer-text">&copy; FIP Всички права запазени.</p>
+    </footer>
+
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
+    <script src="lang.js"></script>
     <script>
         const translations = {
             'bg': { 'page-title': 'Свържете се с нас', 'info-title': 'Информация', 'form-title': 'Резервация на място', 'lbl-name': 'Име и Фамилия', 'lbl-email': 'Email', 'lbl-phone': 'Телефон', 'lbl-route': 'Маршрут', 'lbl-date': 'Дата на пътуване', 'lbl-message': 'Доп. инфо', 'btn-choose-seat': '🚍 Избери място', 'opt-sofia-moldova': 'София ➔ Молдова (Петък)', 'opt-moldova-sofia': 'Молдова ➔ София (Неделя)', 'modal-title': 'Mercedes V-Class', 'btn-confirm': '✅ Потвърди резервацията', 'msg-seat-selected': 'Избрано място: ', 'msg-select-first': 'Моля изберете място.', 'alert-success': 'Резервацията е успешна!', 'alert-fill-data': 'Моля попълнете всички полета!', 'wait-msg-strong': 'Моля изчакайте!' },
@@ -292,11 +306,14 @@
         let selectedSeatNum = null;
         const COOLDOWN_MINUTES = 30;
 
+        const _globalChangeLang = window.changeLanguage;
+
         window.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('preferredLang') || 'bg';
+            if (typeof _globalChangeLang === 'function') _globalChangeLang(savedLang);
             changeLanguage(savedLang);
-            initDates();
-            checkCooldownUI(); // Проверка при зареждане
+            initDates(); // Инициализираме новия календар
+            checkCooldownUI(); 
 
             auth.onAuthStateChanged(user => {
                 if (user && user.email) document.getElementById('email').value = user.email;
@@ -310,42 +327,56 @@
                 let el = document.getElementById(key);
                 if (el) el.innerText = t[key];
             }
+            const g = window.translations && window.translations[lang];
+            if (g) {
+                ['legend-free','legend-taken','legend-driver','btn-close-modal','btn-confirm-booking'].forEach(k => {
+                    const el = document.getElementById(k);
+                    if (el && g[k]) el.innerText = g[k];
+                });
+            }
             localStorage.setItem('preferredLang', lang);
             document.querySelectorAll('.lang-select').forEach(sel => sel.value = lang);
+            
+            // Re-init calendar to update language if needed (optional)
             initDates();
         }
 
-        // --- ДАТИ (Петък / Неделя) ---
-        function getNextDayOfWeek(date, dayOfWeek) {
-            const resultDate = new Date(date.getTime());
-            resultDate.setDate(date.getDate() + (7 + dayOfWeek - date.getDay()) % 7);
-            return resultDate;
-        }
-        function formatDate(date) {
-            let d = date.getDate(), m = date.getMonth() + 1;
-            return (d < 10 ? '0'+d : d) + '.' + (m < 10 ? '0'+m : m);
-        }
+        // --- НОВ КАЛЕНДАР (Flatpickr) ---
+        let calendarInstance = null; 
 
         function initDates() {
-            const dateSelect = document.getElementById('travel-date');
             const route = document.getElementById('route').value;
-            dateSelect.innerHTML = '';
+            const dateInput = document.getElementById('travel-date');
             
-            const today = new Date();
-            let targetDay = 5; // Петък
-            if (route === 'moldova-sofia') targetDay = 0; // Неделя
+            // Изчистваме избраната дата при смяна на маршрута
+            dateInput.value = '';
 
-            let nextDate = getNextDayOfWeek(today, targetDay);
-            if (today.getDay() === targetDay && today.getHours() >= 12) {
-                nextDate.setDate(nextDate.getDate() + 7);
+            // Определяме кой ден е разрешен:
+            // 5 = Петък (за София -> Молдова)
+            // 0 = Неделя (за Молдова -> София)
+            let allowedDay = (route === 'sofia-moldova') ? 5 : 0;
+
+            // Ако вече има календар, го изтриваме, за да направим нов с правилните дни
+            if (calendarInstance) {
+                calendarInstance.destroy();
             }
 
-            for(let i=0; i<4; i++) {
-                let dateStr = formatDate(nextDate);
-                let opt = new Option(dateStr, dateStr);
-                dateSelect.add(opt);
-                nextDate.setDate(nextDate.getDate() + 7);
-            }
+            // Създаваме новия календар
+            calendarInstance = flatpickr("#travel-date", {
+                locale: "bg",             // Български език
+                dateFormat: "d.m.Y",      // Формат: 25.10.2023
+                minDate: "today",         // Не може да избира минали дати
+                disableMobile: "true",    // Да ползва нашия дизайн и на телефон
+                enable: [
+                    function(date) {
+                        // Тази магия прави така, че само Петък или Неделя са активни
+                        return (date.getDay() === allowedDay);
+                    }
+                ],
+                onChange: function(selectedDates, dateStr, instance) {
+                   // Callback при избор
+                }
+            });
         }
 
         // --- COOLDOWN LOGIC ---
@@ -368,7 +399,7 @@
                 box.style.display = 'block';
                 document.getElementById('timer-display').innerText = remaining;
                 btn.disabled = true;
-                btn.innerText = `⏳ ${remaining} мин.`;
+                btn.innerText = ` Wait ${remaining} min to send another.`;
                 return true;
             } else {
                 box.style.display = 'none';
@@ -388,7 +419,9 @@
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
             const email = document.getElementById('email').value;
-            if(!name || !phone || !email) {
+            const date = document.getElementById('travel-date').value; // Check date too
+
+            if(!name || !phone || !email || !date) {
                 alert(translations[currentLang]['alert-fill-data']);
                 return;
             }
@@ -501,5 +534,8 @@
             });
         }
     </script>
+
+    <button id="scroll-to-top">↑</button>
+    <script src="scroll.js"></script>
 </body>
 </html>
