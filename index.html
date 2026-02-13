@@ -9,55 +9,126 @@
     <style>
         /* ВИЗУАЛНИ ЕФЕКТИ */
         body {
-            background-color: #eef2f6; /* Леко сив фон, за да изпъкнат картите */
+            background-color: #eef2f6;
             background-image: linear-gradient(135deg, #eef2f6 0%, #e6e9f0 100%);
+            margin: 0;
+            font-family: sans-serif; /* Добавен основен шрифт за сигурност */
         }
 
-        /* Клас за "кутиите" със съдържание */
+        /* --- СТИЛОВЕ ЗА ХЕДЪРА С ФОНОВА СНИМКА --- */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .header-intro {
+            /* Тук слагаме снимката като фон */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('dunav2.jpg');
+            background-size: cover;      /* Снимката покрива целия елемент */
+            background-position: center; /* Центриране на снимката */
+            background-repeat: no-repeat;
+            
+            /* Размери и подредба */
+            min-height: 400px;           /* Височина на банера */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;                /* Бял текст за контраст */
+            padding: 20px;
+        }
+
+        /* Стилизиране на заглавието върху снимката */
+        .header-intro h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Сянка за по-добро четене */
+        }
+
+        .header-intro p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        /* --- КРАЙ НА ПРОМЕНИТЕ ПО ХЕДЪРА --- */
+
         .content-box {
             background-color: #ffffff;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Мека сянка */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             padding: 40px;
             margin-top: 40px;
             margin-bottom: 40px;
-            border-left: 6px solid #22c55e; /* Зелена лента за акцент */
+            border-left: 6px solid #22c55e;
             transition: transform 0.3s ease;
         }
 
         .content-box:hover {
-            transform: translateY(-5px); /* Леко повдигане при мишка */
+            transform: translateY(-5px);
+        }
+
+        /* Навигация */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: white;
+        }
+
+        .nav-container nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
         }
         
-        /* За да не се чупи хедъра */
-        header { background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .nav-container a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
 
-        .nav-button-container {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            margin-top: 10px;
-            padding: 15px;
+        .logo-img {
+            height: 50px; /* Примерна височина за логото */
+        }
+        
+        /* Grid система за картите */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            padding: 20px;
             text-align: center;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(34, 197, 94, 0.3);
         }
-        .nav-button-container button {
-            padding: 12px 25px;
-            font-size: 16px;
-            font-weight: 600;
-            background-color: white;
-            color: #22c55e;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
         }
-        .nav-button-container button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            color: white;
+
+        /* Бутон стил */
+        .btn {
             background-color: #22c55e;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            transition: background 0.3s;
         }
+        
+        .btn:hover {
+            background-color: #16a34a;
+        }
+
     </style>
 </head>
 <body>
@@ -68,12 +139,12 @@
             </a>
             <nav>
                 <ul>
-                 <li><a href="index.html" id="nav-home">Начало</a></li>
+                   <li><a href="index.html" id="nav-home">Начало</a></li>
                     <li><a href="schedule.html" id="nav-schedule">Разписание</a></li>
                     <li><a href="routes.html" id="nav-routes">Маршрути</a></li>
                     <li><a href="documents.html" id="nav-docs">Документи</a></li>
                     <li><a href="fleet.html" id="nav-fleet">Автопарк</a></li>
-                                   
+                                       
                     <li><a href="contact.html" id="nav-contact">Контакти</a></li>
                     <li>
                         <select class="lang-select" onchange="changeLanguage(this.value)">
@@ -90,19 +161,12 @@
         <div class="header-intro">
             <h1 id="hero-title">Пътувайте комфортно и сигурно</h1>
             <p id="hero-subtitle">Вашият надежден партньор за транспорт между България и Молдова.</p>
-            <a href="schedule.html" class="btn" id="hero-btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Виж разписанието</a>
-        </div>
-    </header>
-    <section class="hero">
-        <div class="container hero-content">
-            <h1 id="hero-title">Пътувайте комфортно и сигурно</h1>
-            <p id="hero-subtitle">Вашият надежден партньор за транспорт между България и Молдова.</p>
             <a href="schedule.html" class="btn" id="hero-btn">Виж разписанието</a>
         </div>
-    </section>
+    </header>
 
-    <section class="container content-box">
-        <h2 class="section-title" id="features-title">Защо да изберете нас?</h2>
+    <section class="container content-box" style="width: 90%; max-width: 1200px; margin: 40px auto;">
+        <h2 class="section-title" id="features-title" style="text-align: center; margin-bottom: 30px;">Защо да изберете нас?</h2>
         <div class="grid">
             <div class="card" style="box-shadow: none; border: 1px solid #eee;">
                 <div class="icon">💰</div>
@@ -122,8 +186,8 @@
         </div>
     </section>
 
-    <section class="container content-box">
-        <div class="grid" style="align-items: center; gap: 40px;">
+    <section class="container content-box" style="width: 90%; max-width: 1200px; margin: 40px auto;">
+        <div class="grid" style="align-items: center; gap: 40px; grid-template-columns: 1fr 1fr;">
             <div>
                 <img src="rommol.jpg" 
                      alt="Border Crossing Moldova Romania" 
@@ -146,7 +210,7 @@
         </div>
     </section>
 
-    <footer>
+    <footer style="text-align: center; padding: 20px;">
         <p id="footer-text">&copy; FIP  Всички права запазени.</p>
     </footer>
 

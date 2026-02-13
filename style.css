@@ -21,6 +21,13 @@
 }
 
 /* --- ФОН И СТРАНИЧНИ ДЕКОРАЦИИ --- */
+.header img {
+    height: 20px;
+    width: 70px;
+    object-fit: contain;
+    transition: transform 0.3s;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
 .img {
     height: 32px;
     width: 32px;
