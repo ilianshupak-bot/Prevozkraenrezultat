@@ -224,7 +224,13 @@ nav a:hover::after, nav a.active::after {
 
 /* Добавяме градиент на основното заглавие ако има id="hero-title" */
 #hero-title {
-    background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+    background: linear-gradient(135deg, #f0f8fb 0%, #d5e7ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+}
+#hero-subtitle {
+    background: linear-gradient(135deg, #f0f8fb 0%, #d5e7ff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: none;
